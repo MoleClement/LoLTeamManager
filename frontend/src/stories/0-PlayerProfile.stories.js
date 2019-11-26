@@ -14,8 +14,9 @@ export const playerState = {
 
 storiesOf('PlayerProfile', module)
     .add('default', () => <PlayerProfile id={playerProfile.id}  {...playerState}/>)
-    .add('doestNotExist', () => <PlayerProfile/>)
-    .add('isConnectedNotInGame', () => <PlayerProfile id={playerProfile.id} isConnected={true}
+
+    .add('isConnectedIsNotInGame', () => <PlayerProfile id={playerProfile.id} isConnected={true}
                                                       isInGame={false}/>)
-    .add('isInGame', () => <PlayerProfile id={playerProfile.id} isConnected={true}
-                                          isInGame={true}/>);
+    .add('isConnectedIsInGame', () => <PlayerProfile id={playerProfile.id} isConnected={true}
+                                          isInGame={true}/>)
+    .add('playerDataDoesNotExist', () => <PlayerProfile/>);

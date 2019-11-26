@@ -3,9 +3,9 @@ import Card from "@material-ui/core/Card/Card";
 import CardContent from "@material-ui/core/CardContent/CardContent";
 import {Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions/CardActions";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 
-import '../PlayerProfile.css';
+import CardMedia from "@material-ui/core/CardMedia";
+import Avatar from "@material-ui/core/Avatar";
 
 
 const bull = <span className={"bullet"}>•</span>;
@@ -35,18 +35,22 @@ export default class PlayerProfile extends React.Component {
             if (this.state.isConnected) {
                 if (this.state.isInGame) {
                     return (
-                        <Card className={"card"}>
+                        <Card>
+                            <CardMedia> <Avatar alt="Player's profile icons" src="/img/image-placeholder.png" style={{
+                                width: 90,
+                                height: 90
+                            }}/></CardMedia>
                             <CardContent>
                                 <Typography color="textPrimary" gutterBottom>
-                                    {this.state.gameSeason}
+                                    Current Season: {this.state.gameSeason}
                                 </Typography>
-                                <Typography variant="h5" component="h2" className={"title"}>
+                                <Typography variant="h5" component="h2">
                                     {this.state.player.playerName}
                                 </Typography>
-                                <Typography variant="body2" className={"pos"}>
-                                    {this.state.account.accountLevel}
+                                <Typography variant="body2" component={"p"}>
+                                    Account Level: {this.state.account.accountLevel}
                                     <br/>
-                                    {this.state.player.playerRating}
+                                    Rating: {this.state.player.playerRating}
                                 </Typography>
                             </CardContent>
                             <CardActions>
@@ -59,17 +63,21 @@ export default class PlayerProfile extends React.Component {
                 } else {
                     return (
                         <Card>
+                            <CardMedia> <Avatar alt="Player's profile icons" src="/img/image-placeholder.png" style={{
+                                width: 90,
+                                height: 90
+                            }}/></CardMedia>
                             <CardContent>
                                 <Typography color="textPrimary" gutterBottom>
-                                    {this.state.gameSeason}
+                                    Current Season: {this.state.gameSeason}
                                 </Typography>
                                 <Typography variant="h5" component="h2">
                                     {this.state.player.playerName}
                                 </Typography>
-                                <Typography variant="body2" component="p">
-                                    {this.state.account.accountLevel}
+                                <Typography variant="body2" component={"p"}>
+                                    Account Level: {this.state.account.accountLevel}
                                     <br/>
-                                    {this.state.player.playerRating}
+                                    Rating: {this.state.player.playerRating}
                                 </Typography>
                             </CardContent>
                             <CardActions>
@@ -84,17 +92,21 @@ export default class PlayerProfile extends React.Component {
             } else {
                 return (
                     <Card>
+                        <CardMedia> <Avatar alt="Player's profile icons" src="/img/image-placeholder.png" style={{
+                            width: 90,
+                            height: 90
+                        }}/></CardMedia>
                         <CardContent>
                             <Typography color="textPrimary" gutterBottom>
-                                {this.state.gameSeason}
+                                Current Season: {this.state.gameSeason}
                             </Typography>
                             <Typography variant="h5" component="h2">
                                 {this.state.player.playerName}
                             </Typography>
-                            <Typography variant="body2" component="p">
-                                {this.state.account.accountLevel}
+                            <Typography variant="body2" component={"p"}>
+                                Account Level: {this.state.account.accountLevel}
                                 <br/>
-                                {this.state.player.playerRating}
+                                Rating: {this.state.player.playerRating}
                             </Typography>
                         </CardContent>
                         <CardActions>
