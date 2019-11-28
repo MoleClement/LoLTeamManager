@@ -13,7 +13,7 @@ export default class StatisticChampion extends Component {
             champions: [
                 {
                     champion: {
-                        championIcon: "Ic Quinn",
+                        championIcon: "/img/image-placeholder.png",
                         championName:
                             "Quinn"
                     }
@@ -30,7 +30,7 @@ export default class StatisticChampion extends Component {
                 },
                 {
                     champion: {
-                        championIcon: "Ic Quinn",
+                        championIcon: "/img/image-placeholder.png",
                         championName:
                             "Quinn"
                     }
@@ -47,7 +47,7 @@ export default class StatisticChampion extends Component {
                 },
                 {
                     champion: {
-                        championIcon: "Ic Quinn",
+                        championIcon: "/img/image-placeholder.png",
                         championName:
                             "Quinn"
                     }
@@ -64,7 +64,7 @@ export default class StatisticChampion extends Component {
                 },
                 {
                     champion: {
-                        championIcon: "Ic Quinn",
+                        championIcon: "/img/image-placeholder.png",
                         championName:
                             "Quinn"
                     }
@@ -81,7 +81,7 @@ export default class StatisticChampion extends Component {
                 },
                 {
                     champion: {
-                        championIcon: "Ic Quinn",
+                        championIcon: "/img/image-placeholder.png",
                         championName:
                             "Quinn"
                     }
@@ -98,7 +98,7 @@ export default class StatisticChampion extends Component {
                 },
                 {
                     champion: {
-                        championIcon: "Ic Quinn",
+                        championIcon: "/img/image-placeholder.png",
                         championName:
                             "Quinn"
                     }

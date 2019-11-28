@@ -6,7 +6,7 @@ import InGameChampion from "../components/InGameChampion";
 
 export const champion = {
     champion: {
-        championIcon: "Ic Jinx",
+        championIcon: "/img/image-placeholder.png",
         championName: "Jinx"
     },
     result: {

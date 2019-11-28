@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {Typography} from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import IconShape from "./IconShape";
 
 
 export default class InGameChampion extends Component {
@@ -23,61 +25,59 @@ export default class InGameChampion extends Component {
 
     render() {
         return (
-            <Grid   container
-                    direction="row"
-                    justify="space-around"
-                    alignItems="center">
-                <Grid item sm={3}>
-                    <Typography sm={12}>
-                        icon: {this.state.champion.icon}
-                    </Typography>
+            <Grid container
+                  direction="row"
+                  justify="space-evenly"
+                  alignItems="center">
+                <Grid item xs>
+                    <IconShape hasVariant={false} variant={""} icon={this.state.champion.icon}/>
                 </Grid>
-                <Grid item sm={3}
+                <Grid item xs
                       container
                       direction="column"
                       justify="space-evenly"
                       alignItems="stretch"
                 >
-                    <Grid item sm={6}>
+                    <Grid item xs>
                         <Typography>
                             name: {this.state.champion.name}
                         </Typography>
                     </Grid>
-                    <Grid item sm={6}>
+                    <Grid item xs>
                         <Typography>
                             cs: {this.state.result.creepScore}
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid item sm={3}
+                <Grid item xs
                       container
                       direction="column"
                       justify="space-evenly"
                       alignItems="stretch"
                 >
-                    <Grid item sm={6}>
+                    <Grid item xs>
                         <Typography>
                             kda: {this.state.result.kda}
                         </Typography>
                     </Grid>
-                    <Grid item sm={6}>
+                    <Grid item xs>
                         <Typography>
                             kda: ({this.state.result.kda})
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid item sm={3}
+                <Grid item xs
                       container
                       direction="column"
                       justify="space-evenly"
                       alignItems="stretch"
                 >
-                    <Grid item sm={6}>
+                    <Grid item xs>
                         <Typography>
                             winrate: {this.state.result.winRate}
                         </Typography>
                     </Grid>
-                    <Grid item sm={6}>
+                    <Grid item xs>
                         <Typography>
                             played: {this.state.result.played}
                         </Typography>
