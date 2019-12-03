@@ -51,5 +51,6 @@ export default class IconShape extends React.Component {
 IconShape.defaultProps = {
     hasVariant: false,
     variant: "",
-    icon: "/img/image-placeholder.png"
+    icon: "/img/image-placeholder.png",
+    big: false
 };

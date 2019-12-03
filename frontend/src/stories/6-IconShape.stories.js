@@ -1,7 +1,7 @@
 import React from "react";
 import {storiesOf} from "@storybook/react/dist/client/preview";
 
-import IconShape from "../components/IconShape";
+import IconShape from "../components/Shape/IconShape";
 
 export const icon = {
     hasVariant: false,

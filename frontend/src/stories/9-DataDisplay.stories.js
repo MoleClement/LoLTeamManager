@@ -1,7 +1,7 @@
 import React from "react";
 import {storiesOf} from "@storybook/react/dist/client/preview";
 
-import DataDisplay from "../components/DataDisplay";
+import DataDisplay from "../components/Display/DataDisplay";
 
 
 storiesOf('DataDisplay', module)

@@ -1,10 +1,10 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import IconShape from "./IconShape";
-import DataDisplay from "./DataDisplay";
-import DataShape from "./DataShape";
-import IconDisplay from "./IconDisplay";
-import ChipShape from "./ChipShape";
+import IconShape from "../Shape/IconShape";
+import DataDisplay from "../Display/DataDisplay";
+import DataShape from "../Shape/DataShape";
+import IconDisplay from "../Display/IconDisplay";
+import ChipShape from "../Shape/ChipShape";
 
 export default class MatchResult extends React.Component {
 

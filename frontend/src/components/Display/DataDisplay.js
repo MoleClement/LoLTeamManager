@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import DataShape from "./DataShape";
+import DataShape from "../Shape/DataShape";
 
 export default class DataDisplay extends React.Component {
 

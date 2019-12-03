@@ -1,7 +1,7 @@
 import React from "react";
 import {storiesOf} from "@storybook/react/dist/client/preview";
 
-import InGameChampion from "../components/InGameChampion";
+import InGameChampion from "../components/Champion/InGameChampion";
 
 
 export const champion = {

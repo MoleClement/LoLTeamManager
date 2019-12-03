@@ -1,7 +1,7 @@
 import React from "react";
 import {storiesOf} from "@storybook/react/dist/client/preview";
 
-import ProfileRank from "../components/ProfileRank";
+import ProfileRank from "../components/Player/ProfileRank";
 
 export const rank = {
     hasRank: true

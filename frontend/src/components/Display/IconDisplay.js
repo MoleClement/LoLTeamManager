@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import IconShape from "./IconShape";
+import IconShape from "../Shape/IconShape";
 
 export default class IconDisplay extends React.Component {
 

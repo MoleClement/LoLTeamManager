@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import {Typography} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import IconShape from "./IconShape";
+import IconShape from "../Shape/IconShape";
 
 
 export default class InGameChampion extends Component {

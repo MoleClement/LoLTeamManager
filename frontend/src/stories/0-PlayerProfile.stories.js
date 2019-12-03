@@ -1,7 +1,7 @@
 import React from "react";
 import {storiesOf} from "@storybook/react/dist/client/preview";
 
-import PlayerProfile from "../components/PlayerProfile";
+import PlayerProfile from "../components/Player/PlayerProfile";
 
 export const playerProfile = {
     id: "1"

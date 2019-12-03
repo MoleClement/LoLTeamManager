@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import InGameRole from "./InGameRole";
+import InGameRole from "../Match/InGameRole";
 
 export default class FavoriteRoles extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            icon: props.roleIcon,
+            icon: props.icon,
             played: props.played,
             winRate: props.winRate
         }
@@ -45,11 +45,11 @@ export default class FavoriteRoles extends Component {
                 </Grid>
                 <Grid>
                     <hr/>
-                    <InGameRole roleIcon={"Top"} played={250} winRate={58}/>
-                    <InGameRole roleIcon={"Jungle"} played={25} winRate={47}/>
-                    <InGameRole roleIcon={"Mid"} played={120} winRate={58}/>
-                    <InGameRole roleIcon={"ADC"} played={70} winRate={52}/>
-                    <InGameRole roleIcon={"Support"} played={40} winRate={50}/>
+                    <InGameRole played={250} winRate={58}/>
+                    <InGameRole played={25} winRate={47}/>
+                    <InGameRole played={120} winRate={58}/>
+                    <InGameRole played={70} winRate={52}/>
+                    <InGameRole played={40} winRate={50}/>
                 </Grid>
 
             </Grid>

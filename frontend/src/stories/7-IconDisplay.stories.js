@@ -1,7 +1,7 @@
 import React from "react";
 import {storiesOf} from "@storybook/react/dist/client/preview";
 
-import IconDisplay from "../components/IconDisplay";
+import IconDisplay from "../components/Display/IconDisplay";
 
 export const icons = [
     {
