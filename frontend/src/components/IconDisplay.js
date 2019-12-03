@@ -8,7 +8,8 @@ export default class IconDisplay extends React.Component {
         super(props);
         this.state = {
 
-            icons: props.icons
+            icons: props.icons,
+            spacing: props.spacing
             /*  icons: [
                   {
                       hasVariant: false,
@@ -35,7 +36,7 @@ export default class IconDisplay extends React.Component {
                 container
                 direction="row"
                 justify="center"
-                alignItems="center"
+                spacing={this.state.spacing}
             >
                 {this.state.icons.map(icon => (
                     <Grid item xs>
@@ -46,3 +47,7 @@ export default class IconDisplay extends React.Component {
         )
     }
 }
+
+IconDisplay.defaultProps = {
+    spacing: 0
+};

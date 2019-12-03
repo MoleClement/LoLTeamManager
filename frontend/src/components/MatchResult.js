@@ -4,6 +4,7 @@ import IconShape from "./IconShape";
 import DataDisplay from "./DataDisplay";
 import DataShape from "./DataShape";
 import IconDisplay from "./IconDisplay";
+import ChipShape from "./ChipShape";
 
 export default class MatchResult extends React.Component {
 
@@ -12,11 +13,11 @@ export default class MatchResult extends React.Component {
 
         this.state = {
             champion: {
-                icon: props.championIcon,
+                icon: props.icon,
                 spell1: props.spell1,
                 spell2: props.spell2,
                 score: props.score,
-                kda: props.championKDA
+                kda: props.kda
             },
             result: {
                 result: props.result,
@@ -37,29 +38,41 @@ export default class MatchResult extends React.Component {
 
         const data = [
             {
-                direction: "row",
+                direction: "column",
                 title: "KDA",
-                content: this.state.result.kda
+                content: this.state.champion.kda
             },
             {
-                direction: "row",
+                direction: "column",
                 title: "Minions",
                 content: this.state.result.creepScore
             },
             {
-                direction: "row",
+                direction: "column",
                 title: "Gold",
                 content: this.state.result.gold
             },
             {
-                direction: "row",
+                direction: "column",
                 title: "Game Time",
                 content: this.state.game.gameTime
             },
             {
-                direction: "row",
+                direction: "column",
                 title: "Date",
                 content: this.state.game.date
+            }
+        ];
+
+        const spellsData = [{
+            hasVariant: true,
+            variant: "rounded",
+            icon: "/img/image-placeholder.png"
+        },
+            {
+                hasVariant: true,
+                variant: "rounded",
+                icon: "/img/image-placeholder.png"
             }
         ];
         const equipmentData = [
@@ -91,8 +104,6 @@ export default class MatchResult extends React.Component {
         ];
         const runeData = [
             {
-                icon: "/img/image-placeholder.png"
-            }, {
 
                 icon: "/img/image-placeholder.png"
             }, {
@@ -127,67 +138,52 @@ export default class MatchResult extends React.Component {
 
                 </Grid>
 
-                <Grid item xs={12}
+                <Grid xs={12} item
                       container
                       direction="row"
-                      justify="flex-start"
-                      alignItems="center">
-
-                    <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center">
-
-                        <Grid item xs={3}>
-                            <IconShape icon={this.state.champion.championIcon}/>
-                        </Grid>
-                        <Grid xs={1}>
-                            <DataShape direction={"column"} spacing={2}
-                                       title={this.state.result.result}
-                                       component={this.state.game.queue}
-                            />
-                        </Grid>
-
-                        <Grid item xs={1}>
-                            <DataShape direction={"column"} spacing={2}
-                                       title={""}
-                                       component={this.state.result.score}
-                            />
-                        </Grid>
-
-                        <Grid xs={6}>
-                            <DataDisplay spacing={2} data={data}/>
-                        </Grid>
-
+                      alignItems="center"
+                >
+                    <Grid item xs>
+                        <IconShape big icon={this.state.champion.icon}/>
                     </Grid>
+
+                    <Grid item xs>
+                        <DataShape direction={"column"} spacing={1}
+                                   title={this.state.result.result}
+                                   content={this.state.game.queue}
+                        />
+                    </Grid>
+                    <Grid item xs>
+                        <ChipShape content={this.state.champion.score}/>
+                    </Grid>
+
+                    <Grid item xs={4}>
+                        <DataDisplay spacing={1} direction={"row"} data={data}/>
+                    </Grid>
+                    <Grid item xs/>
 
                 </Grid>
 
-
-                <Grid item xs={12}
+                <Grid xs={12} item
                       container
                       direction="row"
-                      justify="flex-start"
-                      alignItems="center">
-
+                      alignItems="center"
+                >
                     <Grid item xs={1}>
-                        <IconShape icon={this.state.champion.spell1} hasVariant variant={"rounded"}/>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <IconShape icon={this.state.champion.spell2} hasVariant variant={"rounded"}/>
+                        <IconDisplay icons={spellsData} spacing={1}/>
                     </Grid>
 
-                    <Grid item xs={5}>
-                        <IconDisplay icons={equipmentData}/>
-                    </Grid>
+                    <Grid item xs/>
 
-                    <Grid item xs={5}>
-                        <IconDisplay icons={runeData}/>
+                    <Grid item xs={3}>
+                        <IconDisplay icons={equipmentData} spacing={1}/>
                     </Grid>
-
+                    <Grid item xs/>
+                    <Grid item xs={3}>
+                        <IconDisplay icons={runeData} spacing={1}/>
+                    </Grid>
+                    <Grid item xs/>
                 </Grid>
-
 
             </Grid>
         );

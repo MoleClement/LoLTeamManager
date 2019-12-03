@@ -9,19 +9,42 @@ export default class IconShape extends React.Component {
         this.state = {
             icon: props.icon,
             variant: props.variant,
-            hasVariant: props.hasVariant
+            hasVariant: props.hasVariant,
+            big: props.big
         }
     }
 
     render() {
-        if (!this.state.hasVariant)
-            return (
-                <Avatar src={this.state.icon}/>
-            );
-        else
-            return (
-                <Avatar variant={this.state.variant} src={this.state.icon}/>
-            )
+        switch (this.state.big) {
+            case true:
+                if (!this.state.hasVariant)
+                    return (
+                        <Avatar src={this.state.icon} style={{
+                            width: 90,
+                            height: 90,
+                            marginBottom:10
+                        }}/>
+                    );
+                else
+                    return (
+                        <Avatar variant={this.state.variant} src={this.state.icon} style={{
+                            width: 90,
+                            height: 90,
+                            marginBottom:10
+                        }}/>
+                    );
+            default:
+            case false:
+                if (!this.state.hasVariant)
+                    return (
+                        <Avatar src={this.state.icon}/>
+                    );
+                else
+                    return (
+                        <Avatar variant={this.state.variant} src={this.state.icon}/>
+                    );
+        }
+
     }
 }
 
