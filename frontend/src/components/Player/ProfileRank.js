@@ -5,6 +5,8 @@ import {Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions/CardActions";
 import CardMedia from "@material-ui/core/CardMedia";
 import Avatar from "@material-ui/core/Avatar";
+import Grid from "@material-ui/core/Grid";
+import IconShape from "../Shape/IconShape";
 
 const bull = <span className={"bullet"}>•</span>;
 
@@ -13,15 +15,15 @@ export default class ProfileRank extends React.Component {
         super(props);
         this.state = {
             rank: {
-                rank: "rank",
-                rankImg: "rankImg",
-                rankLP: "playerLP",
-                rankWinRate: "rankWinRate",
-                rankQueue: this.props.queue
+                rank: this.props.rank,
+                rankIcon: this.props.rankIcon,
+                rankLP: this.props.rankLP,
+                rankWinRate: this.props.rankWinRate,
+                rankQueue: this.props.rankQueue
             },
             result: {
-                winNumber: "0",
-                lossNumber: "0"
+                winNumber: this.props.winNumber,
+                loseNumber: this.props.loseNumber
             },
             hasRank: this.props.hasRank
         };
@@ -34,53 +36,40 @@ export default class ProfileRank extends React.Component {
     render() {
         if (this.state.hasRank) {
             return (
-                <Card>
-                    <CardMedia>
-                        <Avatar alt="Rank's icon" src="/img/image-placeholder.png" style={{
-                            width: 90,
-                            height: 90
-                        }}/>
-                    </CardMedia>
-                    <CardContent>
-                        <Typography color="textPrimary" gutterBottom>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                >
+                    <Grid item xs={2}/>
+                    <Grid item xs>
+                        <IconShape big/>
+                    </Grid>
+                    <Grid
+                        container xs
+                        direction="column"
+                        justify="center"
+                        alignItems="flex-start"
+                    >
+                        <Typography color="textPrimary" variant={"body2"} gutterBottom>
                             {this.state.rank.rankQueue}
                         </Typography>
-                        <Typography variant="h5" component="h2">
+                        <Typography variant="h5" component="h2" gutterBottom>
                             {this.state.rank.rank}
                         </Typography>
-                        <Typography variant="body2" component={"p"}>
-                            {this.state.rank.rankLP} <span>LP</span> {bull} {this.state.result.winNumber}
-                            <span>Win</span> {this.state.result.lossNumber} <span>Lose</span>
+                        <Typography variant="body2" component={"p"} gutterBottom>
+                            {this.state.rank.rankLP} LP: {bull} {this.state.result.winNumber}
+                            <span> Win </span> {this.state.result.loseNumber} <span>Lose</span>
                             <br/>
-                            <span>Win Rate: </span> {this.state.rank.rankWinRate}
+                            <span>Win Rate: </span> {this.state.rank.rankWinRate}%
                         </Typography>
-                    </CardContent>
-                </Card>
+                    </Grid>
+                    <Grid item xs={2}/>
+                </Grid>
             );
         } else {
             return (
-                <Card>
-                    <CardMedia>
-                        <Avatar alt="Rank's icon" src="/img/image-placeholder.png" style={{
-                            width: 90,
-                            height: 90
-                        }}/>
-                    </CardMedia>
-                    <CardContent>
-                        <Typography color="textPrimary" gutterBottom>
-                            {this.state.rank.rankQueue}
-                        </Typography>
-                        <Typography variant="h5" component="h2">
-                            Rank: N/A
-                        </Typography>
-                        <Typography variant="body2" component={"p"}>
-                            LP: N/A {bull} {this.state.result.winNumber}
-                            <span>Win</span> {this.state.result.lossNumber} <span>Lose</span>
-                            <br/>
-                            <span>Win Rate: </span> {this.state.rank.rankWinRate}
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <div/>
             );
         }
 

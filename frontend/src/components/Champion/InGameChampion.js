@@ -30,7 +30,7 @@ export default class InGameChampion extends Component {
                   justify="space-evenly"
                   alignItems="center">
                 <Grid item xs>
-                    <IconShape hasVariant={false} variant={""} icon={this.state.champion.icon}/>
+                    <IconShape hasVariant variant={"rounded"} icon={this.state.champion.icon}/>
                 </Grid>
                 <Grid item xs
                       container
