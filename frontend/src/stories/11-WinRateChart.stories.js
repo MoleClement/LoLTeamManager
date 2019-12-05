@@ -5,7 +5,8 @@ import WinRateChart from "../components/Chart/WinRateChart";
 
 export const data = {
     win: 170,
-    lose: 52
+    lose: 52,
+    winRatio: "88.4%"
 };
 
 storiesOf('WinRateChart', module)
