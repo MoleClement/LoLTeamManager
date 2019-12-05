@@ -22,4 +22,4 @@ export const icons = [
 ];
 
 storiesOf('IconDisplay', module)
-    .add('default', () => <IconDisplay/>);
+    .add('default', () => <IconDisplay icons={icons}/>);

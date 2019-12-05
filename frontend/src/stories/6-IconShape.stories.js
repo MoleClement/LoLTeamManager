@@ -10,7 +10,10 @@ export const icon = {
 };
 
 storiesOf('IconShape', module)
-    .add('default', () => <IconShape {...icon}/>)
-    .add('Rounded', () => <IconShape {...icon} hasVariant variant={"rounded"}/>)
-    .add('Square', () => <IconShape {...icon} hasVariant variant={"square"}/>)
+    .add('Default', () => <IconShape {...icon}/>)
+    .add('Small Rounded', () => <IconShape {...icon} hasVariant variant={"rounded"}/>)
+    .add('Small Square', () => <IconShape {...icon} hasVariant variant={"square"}/>)
+    .add('Big Default', () => <IconShape {...icon} big/>)
+    .add('Big Rounded', () => <IconShape {...icon} big hasVariant variant={"rounded"}/>)
+    .add('Big Square', () => <IconShape {...icon} big hasVariant variant={"square"}/>)
     .add('noData', () => <IconShape/>);
