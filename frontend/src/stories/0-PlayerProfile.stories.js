@@ -3,20 +3,22 @@ import {storiesOf} from "@storybook/react/dist/client/preview";
 
 import PlayerProfile from "../components/Player/PlayerProfile";
 
-export const playerProfile = {
-    id: "1"
+export const data = {
+
+    playerName: "Feengh",
+    playerRating: "12,521 (0.08%)",
+    id: 10,
+    accountIcon: "",
+    accountLevel: "188",
+    isConnected: false,
+    isInGame: false,
+    gameSeason: "Profile season 10"
 };
 
-export const playerState = {
-    isConnected: false,
-    isInGame: false
-};
 
 storiesOf('PlayerProfile', module)
-    .add('default', () => <PlayerProfile id={playerProfile.id}  {...playerState}/>)
+    .add('default', () => <PlayerProfile {...data}/>)
 
-    .add('isConnectedIsNotInGame', () => <PlayerProfile id={playerProfile.id} isConnected={true}
-                                                      isInGame={false}/>)
-    .add('isConnectedIsInGame', () => <PlayerProfile id={playerProfile.id} isConnected={true}
-                                          isInGame={true}/>)
+    .add('isConnectedIsNotInGame', () => <PlayerProfile {...data} isConnected/>)
+    .add('isConnectedIsInGame', () => <PlayerProfile {...data} isConnected isInGame/>)
     .add('playerDataDoesNotExist', () => <PlayerProfile/>);

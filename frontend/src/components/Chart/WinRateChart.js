@@ -43,3 +43,9 @@ export default class WinRateChart extends React.Component {
         );
     }
 }
+
+WinRateChart.defaultProps = {
+    win: 170,
+    lose: 52,
+    winRatio: "88.4%"
+};
