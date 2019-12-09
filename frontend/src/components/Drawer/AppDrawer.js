@@ -33,6 +33,7 @@ import InputBase from "@material-ui/core/InputBase";
 import {fade} from "@material-ui/core/styles";
 import PlayerDashboard from "../Display/PlayerDashboard";
 import CoachDashboard from "../Display/CoachDashboard";
+import {Link, Redirect, Route, Switch} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -147,7 +148,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MiniDrawer() {
+export default function AppDrawer() {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -225,9 +226,9 @@ export default function MiniDrawer() {
                                 <ListItemIcon>{(() => {
                                     switch (text) {
                                         case 'Dashboard':
-                                            return <DashboardIcon text={text}/>;
+                                            return <Link to={"/coach-dashboard"}><DashboardIcon text={text}/></Link>;
                                         case 'Explore':
-                                            return <ExploreIcon text={text}/>;
+                                            return <Link to={"/player-dashboard"}><ExploreIcon text={text}/></Link>;
                                         case 'Strategies':
                                             return <ListIcon text={text}/>;
                                         case 'Tournaments':
@@ -255,7 +256,13 @@ export default function MiniDrawer() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar}/>
-                <PlayerDashboard/>
+                <Switch>
+                    <Route exact path="/" render={() => (
+                        <Redirect to="/coach-dashboard"/>
+                    )}/>
+                    <Route exact path='/coach-dashboard' component={CoachDashboard}/>
+                    <Route exact path='/player-dashboard' component={PlayerDashboard}/>
+                </Switch>
             </main>
         </div>
     );

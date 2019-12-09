@@ -25,7 +25,6 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 ///const ResponsiveGridLayout = WidthProvider(Responsive);
 
-
 export default class PlayerDashboard extends React.Component {
 
     constructor(props) {
@@ -38,7 +37,9 @@ export default class PlayerDashboard extends React.Component {
                 {teamName: "Team 2", teamId: 2},
                 {teamName: "Team 3", teamId: 3}
             ]
-        }
+        };
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
@@ -46,7 +47,6 @@ export default class PlayerDashboard extends React.Component {
     }
 
     render() {
-
 
         const layout = [
             {i: '0', x: 0, y: 0, w: 11, h: 2, static: true},
@@ -59,18 +59,21 @@ export default class PlayerDashboard extends React.Component {
 
 
         return (
+            
             <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
                 <div key={'0'}>
+
                     <FormControl variant="outlined" style={{
-                        margin: 0,
+                        margin: 10,
                         minWidth: 120,
                     }}>
-                        <InputLabel id="demo-simple-select-helper-label">Team</InputLabel>
+                        <InputLabel id="demo-simple-select-outlined-label">Team</InputLabel>
                         <Select
                             labelId="demo-simple-select-outlined-label"
-                            id="demo-simple-select-helper"
+                            id="demo-simple-select-outlined"
                             value={this.selectedTeam}
                             onChange={this.handleChange}
+                            labelWidth={50}
                         >
                             <MenuItem value={-1}>
                                 <em>None</em>
