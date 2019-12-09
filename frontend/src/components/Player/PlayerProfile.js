@@ -36,10 +36,10 @@ export default class PlayerProfile extends React.Component {
         if (this.state.account.accountId) {
             return (
                 <Grid
-                      container
-                      direction="row"
-                      justify="center"
-                      alignItems="center"
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
                 >
                     <Grid item xs>
                         <IconShape big/>

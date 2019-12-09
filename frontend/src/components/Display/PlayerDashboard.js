@@ -39,56 +39,63 @@ export default class PlayerDashboard extends React.Component {
         return (
             <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
                 <div key={'0'}>
-                    <Card style={{height:'100%', width:"100%",display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
-                        <CardContent style={{display:"inline-block"}}>
+                    <Card style={{
+                        height: '100%',
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>
+                        <CardContent style={{display: "inline-block"}}>
                             <PlayerProfile/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'1'}>
-                    <Card style={{height:'100%',display:"flex", alignItems:"center"}}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
                             <ProfileRank/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'2'}>
-                    <Card style={{height:'100%',display:"flex", alignItems:"center"}}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
                             <ProfileRank/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'3'}>
-                    <Card style={{height:'100%',display:"flex", alignItems:"center"}}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
                             <ProfileRank/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'4'}>
-                    <Card style={{height:'100%',display:"flex", alignItems:"center"}}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
                             <WinRatioChart/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'5'}>
-                    <Card style={{height:'100%',display:"flex", alignItems:"center"}}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
                             <StatisticChampions length={"5"}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'6'}>
-                    <Card style={{height:'100%',display:"flex", alignItems:"center"}}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
                             <WinRateChart/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'7'}>
-                    <Card style={{height:'100%',display:"flex", alignItems:"center"}}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
                             <MatchResult/>
                         </CardContent>

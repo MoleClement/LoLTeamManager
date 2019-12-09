@@ -32,6 +32,7 @@ import CustomAppBar from "./CustomAppBar";
 import InputBase from "@material-ui/core/InputBase";
 import {fade} from "@material-ui/core/styles";
 import PlayerDashboard from "../Display/PlayerDashboard";
+import CoachDashboard from "../Display/CoachDashboard";
 
 const drawerWidth = 240;
 
