@@ -19,7 +19,11 @@ var teamSchema = new mongoose.Schema({
     strategy:[{
         name : { type: String},
         winRate:  { type: Number}
-    }]
+    }],
+    practices:{
+        left: [{type : Number}],
+        right: [{type: Number}]
+    }
 
 });
 
