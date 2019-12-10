@@ -6,14 +6,10 @@ var coachSchema = new mongoose.Schema({
         type: String,
         required: "Required",
     },
-    nbTeams:{
+    teams:[{
         type: Number,
         required: "Required",
-    },
-    teams:{
-        type: String,
-        required: "Required",
-    }
+    }]
 });
 
 // export our model

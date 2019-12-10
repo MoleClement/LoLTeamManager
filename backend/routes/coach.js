@@ -3,15 +3,27 @@ var router = express.Router();
 var coach = require('../controllers/coach.controller');
 
 // call function findOne in coach.controller
-router.get('/', coach.findOne);
+router.get('/byName', coach.findOne);
+
+// call function findOne in coach.controller
+router.get('/byId', coach.findById);
 
 // call function create in coach.controller
-router.put('/', coach.create);
+router.post('/', coach.create);
 
 // call function update in coach.controller
-/*router.post('/', coach.update);*/
+router.put('/', coach.update);
 
 // call function delete in coach.controller
 router.delete('/', coach.delete);
+
+// call function delete in coach.controller
+router.put('/addTeamtoCoach', coach.addTeamtoCoach);
+
+// call function delete in coach.controller
+router.put('/deleteTeamFromCoach', coach.deleteTeamFromCoach);
+
+
+router.put('/deleteTeamByIdFromCoach', coach.deleteTeamByIdFromCoach);
 
 module.exports = router;
