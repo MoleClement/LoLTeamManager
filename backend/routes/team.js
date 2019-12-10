@@ -11,6 +11,9 @@ router.get('/getTeamById', coach.getTeamById);
 // call function createTeam in team.controller
 router.post('/createTeam', coach.createTeam);
 
+// call function updateTeamPractices in team.controller
+router.put('/updateTeamPractices', coach.updateTeamPractices);
+
 
 
 module.exports = router;

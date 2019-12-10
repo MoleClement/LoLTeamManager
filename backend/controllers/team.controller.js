@@ -74,3 +74,32 @@ exports.createTeam = (req, res) => {
         });
 };
 
+// update a coach by its name
+exports.updateTeamPractices = (req, res) => {
+
+    // Request all the information required in collection coach
+    if (!req.body.teamId || !req.body.practices) {
+        return res.status(400).send({
+            message: 'Need teamId and practicesToUpdate data'
+        });
+    }
+    else {
+        const filter = {_id: req.body.teamId};
+        const update = {practices: req.body.practices};
+
+        if (update) {
+            // find the coach
+            Team.findOneAndUpdate(filter, update)
+                .then(team => {
+                    // if not found : error message
+                    if (!team) {
+                        return res.status(404).send({
+                            message: 'Team not found'
+                        });
+                    }
+                    //if found : return a message
+                    res.send({message: `Team updated`});
+                });
+        }
+    }
+};
