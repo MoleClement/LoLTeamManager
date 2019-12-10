@@ -10,6 +10,7 @@ export default class StatisticChampion extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            playerId: props.playerId,
             champions: [
                 {
                     champion: {

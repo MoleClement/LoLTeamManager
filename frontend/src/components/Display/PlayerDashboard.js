@@ -19,7 +19,16 @@ export default class PlayerDashboard extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {playerId: props.match.params.playerId}
+    }
+
+    getData() {
+
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevProps.match.params.playerId !== this.props.match.params.playerId)
+            this.setState({playerId: this.props.match.params.playerId})
     }
 
     render() {
@@ -39,65 +48,78 @@ export default class PlayerDashboard extends React.Component {
         return (
             <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
                 <div key={'0'}>
-                    <Card style={{
-                        height: '100%',
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent style={{display: "inline-block"}}>
-                            <PlayerProfile/>
+                            <PlayerProfile playerId={this.state.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'1'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank/>
+                            <ProfileRank playerId={this.state.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'2'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank/>
+                            <ProfileRank playerId={this.state.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'3'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank/>
+                            <ProfileRank playerId={this.state.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'4'}>
-                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
+                    <Card style={{
+                        height: '100%',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>
                         <CardContent>
-                            <WinRatioChart/>
+                            <WinRatioChart playerId={this.state.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'5'}>
-                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
+                    <Card style={{
+                        height: '100%',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>
                         <CardContent>
-                            <StatisticChampions length={"5"}/>
+                            <StatisticChampions playerId={this.state.playerId} length={"5"}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'6'}>
-                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
+                    <Card style={{
+                        height: '100%',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>
                         <CardContent>
-                            <WinRateChart/>
+                            <WinRateChart playerId={this.state.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'7'}>
-                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
+                    <Card style={{
+                        height: '100%',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>
                         <CardContent>
-                            <MatchResult/>
+                            <MatchResult playerId={this.state.playerId}/>
                         </CardContent>
                     </Card>
                 </div>

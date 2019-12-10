@@ -32,9 +32,68 @@ export default class Team extends React.Component {
         super(props);
 
         this.state = {
+            teamId: props.teamId,
             teamName: props.teamName,
             players: props.players
         }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+            if(prevProps.teamId !== this.props.teamId)
+            {
+                this.getData();
+            }
+    }
+
+    getData(){
+        this.setState({
+            players: [
+            {
+                playerName: "Foo",
+                playerId: "id",
+                role: "top",
+                mastered: ["Test", "Test"],
+                toTrain: ["Test", "Test"],
+                disliked: ["Test"]
+            },
+            {
+                playerName: "Jane",
+                playerId: "id",
+                role: "jungle",
+                mastered: ["Shyvana", "Xin Zhao", "Graggas", "Lee Sin"],
+                toTrain: ["Nunu", "Kha'Zix"],
+                disliked: ["Ivern"]
+            },
+            {
+                playerName: "John",
+                playerId: "id",
+                role: "mid",
+                mastered: ["Qiyana", "Ryze", "Zed"],
+                toTrain: ["Cassiopeia"],
+                disliked: ["Twisted Fate"]
+            },
+            {
+                playerName: "Do",
+                playerId: "id",
+                role: "adc",
+                mastered: ["Lucian", "Xayah"],
+                toTrain: ["Tristana", "Ezreal"],
+                disliked: ["Miss Fortune"]
+            },
+            {
+                playerName: "Doe",
+                playerId: "id",
+                role: "support",
+                mastered: ["Zyra", "Velkoz", "Nautilus"],
+                toTrain: ["Leona"],
+                disliked: ["Yuumi"]
+            }
+        ]
+        })
+    }
+
+    componentDidMount() {
+
     }
 
     render() {
@@ -92,6 +151,7 @@ export default class Team extends React.Component {
 }
 
 Team.defaultProps = {
+
     teamName: "NGA B",
     players: [
         {
@@ -126,7 +186,6 @@ Team.defaultProps = {
             toTrain: ["Tristana", "Ezreal"],
             disliked: ["Miss Fortune"]
         },
-
         {
             playerName: "SmileCookie",
             playerId: "id",

@@ -17,11 +17,10 @@ export default class WinRatioChart extends React.Component {
         super(props);
 
         this.state = {
+            playerId: props.playerId,
             days: props.days,
         }
-
     }
-
 
     render() {
         const data = [

@@ -18,17 +18,18 @@ export default class PlayerProfile extends React.Component {
         super(props);
         this.state = {
             player: {
-                playerName: this.props.playerName,
-                playerRating: this.props.playerRating,
+                playerId: props.playerId,
+                playerName: props.playerName,
+                playerRating: props.playerRating,
             },
             account: {
-                accountId: this.props.id,
-                accountIcon: this.props.accountIcon,
-                accountLevel: this.props.accountLevel
+                accountId: props.id,
+                accountIcon: props.accountIcon,
+                accountLevel: props.accountLevel
             },
-            isConnected: this.props.isConnected,
-            isInGame: this.props.isInGame,
-            gameSeason: this.props.gameSeason
+            isConnected: props.isConnected,
+            isInGame: props.isInGame,
+            gameSeason: props.gameSeason
         };
     }
 

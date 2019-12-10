@@ -22,6 +22,14 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import CreateTeamForm from "../Inputs/CreateTeamForm";
 
 ///const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -31,7 +39,7 @@ export default class PlayerDashboard extends React.Component {
         super(props);
         this.state = {
 
-            selectedTeam: -1,
+            selectedTeam: 0,
             teams: [
                 {teamName: "Team 1", teamId: 1},
                 {teamName: "Team 2", teamId: 2},
@@ -40,10 +48,27 @@ export default class PlayerDashboard extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.onCreateTeam = this.onCreateTeam.bind(this);
     }
 
     handleChange(event) {
         this.setState({selectedTeam: event.target.value})
+    }
+
+    onCreateTeam() {
+        this.getData();
+        this.setState({
+            selectedTeam: (this.state.teams.length - 1)
+        });
+    }
+
+    getData() {
+        this.setState({ teams: [
+                {teamName: "Team 1", teamId: 1},
+                {teamName: "Team 2", teamId: 2},
+                {teamName: "Team 3", teamId: 3},
+                {teamName: "Team 4", teamId: 4}
+            ]})
     }
 
     render() {
@@ -57,15 +82,16 @@ export default class PlayerDashboard extends React.Component {
             {i: '5', x: 3, y: 12, w: 8, h: 5, static: true},
         ];
 
-
         return (
-            
             <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
                 <div key={'0'}>
 
+                    <CreateTeamForm onCreateTeam={this.onCreateTeam}/>
+
                     <FormControl variant="outlined" style={{
-                        margin: 10,
+                        margin: -40,
                         minWidth: 120,
+                        float: "right"
                     }}>
                         <InputLabel id="demo-simple-select-outlined-label">Team</InputLabel>
                         <Select
@@ -89,35 +115,35 @@ export default class PlayerDashboard extends React.Component {
                 <div key={'1'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <PlayerProfile teamId={this.state.teams[this.state.selectedTeam]}/>
+                            <PlayerProfile teamId={this.state.teams[this.state.selectedTeam].teamName}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'2'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
                         <CardContent>
-                            <StrategyWinRateChart teamId={this.state.teams[this.state.selectedTeam]}/>
+                            <StrategyWinRateChart teamId={this.state.teams[this.state.selectedTeam].teamId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'3'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
                         <CardContent>
-                            <TrainingTransferList teamId={this.state.teams[this.state.selectedTeam]}/>
+                            <TrainingTransferList teamId={this.state.teams[this.state.selectedTeam].teamId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'4'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <TrainingChart teamId={this.state.teams[this.state.selectedTeam]}/>
+                            <TrainingChart teamId={this.state.teams[this.state.selectedTeam].teamId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'5'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
                         <CardContent>
-                            <Team teamId={this.state.teams[this.state.selectedTeam]}/>
+                            <Team teamId={this.state.teams[this.state.selectedTeam].teamId}/>
                         </CardContent>
                     </Card>
                 </div>

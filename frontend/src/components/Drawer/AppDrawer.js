@@ -33,7 +33,9 @@ import InputBase from "@material-ui/core/InputBase";
 import {fade} from "@material-ui/core/styles";
 import PlayerDashboard from "../Display/PlayerDashboard";
 import CoachDashboard from "../Display/CoachDashboard";
-import {Link, Redirect, Route, Switch} from "react-router-dom";
+import {Link, Redirect, Route, Switch, withRouter} from "react-router-dom";
+import Explore from "../Display/Explore";
+import nav from "../../nav";
 
 const drawerWidth = 240;
 
@@ -148,10 +150,12 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function AppDrawer() {
+function AppDrawer(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [redirect, setRedirection] = React.useState(false);
+    const [redirectPath, setRedirectionPath] = React.useState("");
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -161,109 +165,126 @@ export default function AppDrawer() {
         setOpen(false);
     };
 
-    return (
-        <div className={classes.root}>
-            <CssBaseline/>
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-            >
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                        })}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                    >
-                        <MenuIcon/>
-                    </IconButton>
-                    <div/>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon/>
+    const onSubmitSearch = (e) => {
+        if (e.key === 'Enter') {
+            nav('/player-dashboard/' + e.target.value);
+            setRedirection(true);
+            setRedirectionPath('/player-dashboard/' + e.target.value);
+        }
+    };
+        return (
+            <div className={classes.root}>
+                <CssBaseline/>
+                <AppBar
+                    position="fixed"
+                    className={clsx(classes.appBar, {
+                        [classes.appBarShift]: open,
+                    })}
+                >
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            className={clsx(classes.menuButton, {
+                                [classes.hide]: open,
+                            })}
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                        <div/>
+                        <div className={classes.search}>
+
+                            <div className={classes.searchIcon}>
+                                <SearchIcon/>
+                            </div>
+                            <InputBase
+                                placeholder="Search summoner..."
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                                inputProps={{'aria-label': 'search'}}
+                                onKeyDown={onSubmitSearch}
+                            />
+
                         </div>
-                        <InputBase
-                            placeholder="Search summoner..."
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{'aria-label': 'search'}}
-                        />
-                    </div>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
-                    paper: clsx({
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    className={clsx(classes.drawer, {
                         [classes.drawerOpen]: open,
                         [classes.drawerClose]: !open,
-                    }),
-                }}
-                open={open}
-            >
-                <div className={classes.toolbar}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
-                    </IconButton>
-                </div>
-                <Divider/>
-                <div className={classes.drawerContent}>
-
-                    <List>
-                        {['Dashboard', 'Explore', 'Strategies', 'Tournaments'].map((text) => (
-                            <ListItem button key={text}>
-                                <ListItemIcon>{(() => {
-                                    switch (text) {
-                                        case 'Dashboard':
-                                            return <Link to={"/coach-dashboard"}><DashboardIcon text={text}/></Link>;
-                                        case 'Explore':
-                                            return <Link to={"/player-dashboard"}><ExploreIcon text={text}/></Link>;
-                                        case 'Strategies':
-                                            return <ListIcon text={text}/>;
-                                        case 'Tournaments':
-                                            return <EventIcon text={text}/>;
-                                        default:
-                                            return null;
-                                    }
-                                })()}</ListItemIcon>
-                                <ListItemText primary={text}/>
-                            </ListItem>
-                        ))}
-                    </List>
-
-                </div>
-                <Divider/>
-                <div className={classes.drawerFooter}>
+                    })}
+                    classes={{
+                        paper: clsx({
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open,
+                        }),
+                    }}
+                    open={open}
+                >
+                    <div className={classes.toolbar}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
+                        </IconButton>
+                    </div>
                     <Divider/>
-                    <List>
-                        <ListItem button key={"Disconnect"}>
-                            <ListItemIcon><PowerIcon/></ListItemIcon>
-                            <ListItemText primary={"Disconnect"}/>
-                        </ListItem>
-                    </List>
-                </div>
-            </Drawer>
-            <main className={classes.content}>
-                <div className={classes.toolbar}/>
-                <Switch>
-                    <Route exact path="/" render={() => (
-                        <Redirect to="/coach-dashboard"/>
-                    )}/>
-                    <Route exact path='/coach-dashboard' component={CoachDashboard}/>
-                    <Route exact path='/player-dashboard' component={PlayerDashboard}/>
-                </Switch>
-            </main>
-        </div>
-    );
+                    <div className={classes.drawerContent}>
+
+                        <List>
+                            {['Dashboard', 'Explore', 'Strategies', 'Tournaments'].map((text) => (
+                                <ListItem button key={text}>
+                                    <ListItemIcon>{(() => {
+                                        switch (text) {
+                                            case 'Dashboard':
+                                                return <Link to={"/coach-dashboard"}><DashboardIcon
+                                                    text={text}/></Link>;
+                                            case 'Explore':
+                                                return <Link to={"/player-dashboard"}><ExploreIcon text={text}/></Link>;
+                                            case 'Strategies':
+                                                return <ListIcon text={text}/>;
+                                            case 'Tournaments':
+                                                return <EventIcon text={text}/>;
+                                            default:
+                                                return null;
+                                        }
+                                    })()}</ListItemIcon>
+                                    <ListItemText primary={text}/>
+                                </ListItem>
+                            ))}
+                        </List>
+
+                    </div>
+                    <Divider/>
+                    <div className={classes.drawerFooter}>
+                        <Divider/>
+                        <List>
+                            <ListItem button key={"Disconnect"}>
+                                <ListItemIcon><PowerIcon/></ListItemIcon>
+                                <ListItemText primary={"Disconnect"}/>
+                            </ListItem>
+                        </List>
+                    </div>
+                </Drawer>
+                <main className={classes.content}>
+                    <div className={classes.toolbar}/>
+                    <Switch>
+                        <Route  exact path="/" render={() => (
+                            <Redirect to="/coach-dashboard"/>
+                        )}/>
+                        <Route path='/coach-dashboard' component={CoachDashboard}/>
+                        <Switch>
+                            <Route exact path={"/player-dashboard"} component={Explore}>
+                            </Route>
+                            <Route path={"/player-dashboard/:playerId"} component={PlayerDashboard}>
+                            </Route>
+                        </Switch>
+                    </Switch>
+                </main>
+            </div>
+        );
 }
+export default withRouter(AppDrawer)

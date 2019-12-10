@@ -12,6 +12,7 @@ export default class MatchResult extends React.Component {
         super(props);
 
         this.state = {
+            playerId: props.playerId,
             champion: {
                 icon: props.icon,
                 spell1: props.spell1,

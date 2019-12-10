@@ -10,13 +10,46 @@ export default class StrategyWinRateChart extends React.Component {
         super(props);
 
         this.state = {
-            data: props.data
+            data: props.data,
+            teamId: props.teamId
         }
+    }
+
+
+    componentDidMount() {
+    }
+
+    getTeamData(id) {
+        this.setState({
+            data: [
+                {
+                    strategy: 'Split Push', A: 67, B: 50, fullMark: 100,
+                },
+                {
+                    strategy: 'Poke', A: 45, B: 50, fullMark: 100,
+                },
+                {
+                    strategy: 'Protect the Carry', A: 86, B: 50, fullMark: 100,
+                },
+                {
+                    strategy: 'Area of Effect', A: 26, B: 50, fullMark: 100,
+                },
+                {
+                    strategy: 'Swap Lane', A: 58, B: 50, fullMark: 100,
+                }
+            ],
+            teamId: this.props.teamId
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.teamId !== prevProps.teamId)
+            this.getTeamData();
     }
 
     render() {
         return (
-            <RadarChart outerRadius={150} width={500} height={500} data={this.state.data}>
+            <RadarChart outerRadius={150} width={500} height={400} data={this.state.data}>
                 <PolarGrid/>
                 <PolarAngleAxis dataKey="strategy"/>
                 <PolarRadiusAxis angle={30} domain={[0, 100]}/>

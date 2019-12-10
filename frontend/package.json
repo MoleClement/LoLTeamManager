@@ -44,6 +44,9 @@
     "@storybook/addon-actions": "^5.2.6",
     "@storybook/addon-links": "^5.2.6",
     "@storybook/addons": "^5.2.6",
-    "@storybook/react": "^5.2.6"
+    "@storybook/react": "^5.2.6",
+    "history": "^4.10.1",
+    "prop-types": "^15.7.2",
+    "react-router": "^5.1.2"
   }
 }

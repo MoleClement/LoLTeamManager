@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import AppDrawer from "./components/Drawer/AppDrawer";
+import history from "./history";
 
+import { Router } from 'react-router';
 
 function App() {
-    return (<Router basename={process.env.PUBLIC_URL}>
+    return (<Router history={history} basename={process.env.PUBLIC_URL}>
             <div>
                 <AppDrawer/>
             </div>

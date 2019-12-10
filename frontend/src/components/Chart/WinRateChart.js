@@ -11,6 +11,7 @@ export default class WinRateChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            playerId : props.playerId,
             win: props.win,
             lose: props.lose,
             winRatio: props.winRatio

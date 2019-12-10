@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
@@ -41,7 +41,8 @@ function union(a, b) {
     return [...a, ...not(b, a)];
 }
 
-export default function TrainingTransferList() {
+export default function TrainingTransferList(teamId) {
+
     const classes = useStyles();
     const practices = ["Communication", "Vision Control", "Dive", "Taking Objectives", "Team Fight"
         , "Lane Management", "Invade", "Coin Flip", "Wave Management", "Win Condition", "Itemization", "Draft"];

@@ -14,18 +14,19 @@ export default class ProfileRank extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            playerId: props.playerId,
             rank: {
-                rank: this.props.rank,
-                rankIcon: this.props.rankIcon,
-                rankLP: this.props.rankLP,
-                rankWinRate: this.props.rankWinRate,
-                rankQueue: this.props.rankQueue
+                rank: props.rank,
+                rankIcon: props.rankIcon,
+                rankLP: props.rankLP,
+                rankWinRate: props.rankWinRate,
+                rankQueue: props.rankQueue
             },
             result: {
-                winNumber: this.props.winNumber,
-                loseNumber: this.props.loseNumber
+                winNumber: props.winNumber,
+                loseNumber: props.loseNumber
             },
-            hasRank: this.props.hasRank
+            hasRank: props.hasRank
         };
     }
 
