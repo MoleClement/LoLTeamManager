@@ -1,50 +1,33 @@
 const mongoose = require("mongoose");
 
 var teamSchema = new mongoose.Schema({
+    ObjetId:{
+        type: ObjectID ,
+        required:"Required"
+    }
     name:{
         type: String,
         required: "Required",
     },
-    players:[{
-        id: String,
-        role: String,
-        masteredChampions: String,
-        dislikedChampions: String,
-        toTrain:String,
-        Practices:String
-    }],
-    sunday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    saturday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    friday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    thursday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    wednesday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    tuesday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    monday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    strategy:[{
-        name: String,
-        ratio: Number
+
+    players[]:{ 
+    type: String,
+    required: "Required",
+    },
+
+    training:{
+        wednesday[]:{type:number,required :"Required"},
+        friday[]:{type:number,required :"Required"},
+        saturday[]:{type:number,required :"Required"},
+        sunday[]:{type:number,required :"Required"}
+    },
+
+    strategy:[
+    {
+        name{type: String, required:"Required"},
+        ratio{type: number, required"required"}
     }]
+
 });
 
 module.exports = mongoose.model('Coach', teamSchema, 'coach');
