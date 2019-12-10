@@ -7,6 +7,10 @@ var coachSchema = new mongoose.Schema({
         required: "Required",
     },
     nbTeams:{
+        type: Number,
+        required: "Required",
+    },
+    teams:{
         type: String,
         required: "Required",
     }

@@ -36,16 +36,17 @@ exports.findOne = (req, res) => {
 exports.create = (req, res) => {
     /*console.log(req.body);*/
     // Request all the informations required in collection coach
-    if (!req.body.name || !req.body.nbTeams) {
+    if (!req.body.name || !req.body.nbTeams || !req.body.teams) {
         return res.status(400).send({
-            message: 'name and nbTeams can not be empty'
+            message: 'The name, the nbTeams and the teams of a coach cannot be empty'
         });
     }
 
     // Create a new coach
     const coach = new Coach({
         name: req.body.name,
-        nbTeams: req.body.nbTeams
+        nbTeams: req.body.nbTeams,
+        teams: req.body.teams
     });
     console.log(coach);
 
