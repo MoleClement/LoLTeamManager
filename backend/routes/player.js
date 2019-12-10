@@ -11,7 +11,7 @@ router.post('/', player.create);
 // call function update in player.controller
 /*router.post('/', coach.update);*/
 
-/*// call function delete in player.controller
-router.delete('/', player.delete);*/
+// call function delete in player.controller
+router.delete('/', player.delete);
 
 module.exports = router;

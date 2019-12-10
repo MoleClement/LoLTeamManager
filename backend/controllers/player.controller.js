@@ -66,11 +66,10 @@ exports.create = (req, res) => {
         });
 };
 
-/*
 // delete a coach by its name
 exports.delete = (req, res) => {
     // find the coach
-    Player.findOneAndDelete({'id': req.body.id})
+    Player.findOneAndDelete(req.body.id)
         .then(player => {
             // if not found : error message
             if (!player) {
@@ -79,7 +78,7 @@ exports.delete = (req, res) => {
                 });
             }
             //if found : return a message
-            res.send({ message: `player ${req.body.id} deleted` });
+            res.send({ message: `player deleted` });
         });
-};*/
+};
 
