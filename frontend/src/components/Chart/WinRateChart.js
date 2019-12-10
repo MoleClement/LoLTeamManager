@@ -18,6 +18,20 @@ export default class WinRateChart extends React.Component {
         }
     }
 
+    getData() {
+
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevProps.playerId !== this.props.playerId) {
+            this.getData();
+        }
+    }
+
+    componentDidMount(): void {
+        this.getData();
+    }
+
     render() {
 
         const data = [{name: 'Win', value: this.state.win}, {name: 'Lose', value: this.state.lose},

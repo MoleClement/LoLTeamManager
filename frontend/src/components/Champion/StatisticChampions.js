@@ -101,6 +101,21 @@ export default class StatisticChampion extends Component {
         }
     }
 
+    getData() {
+
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevProps.playerId !== this.props.playerId) {
+            this.getData();
+        }
+    }
+
+    componentDidMount(): void {
+        this.getData();
+    }
+
+
     render() {
         if (this.state.length === 0) {
             return (

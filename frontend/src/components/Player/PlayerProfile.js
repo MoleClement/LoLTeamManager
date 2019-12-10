@@ -33,6 +33,20 @@ export default class PlayerProfile extends React.Component {
         };
     }
 
+    getData() {
+
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevProps.playerId !== this.props.playerId) {
+            this.getData();
+        }
+    }
+
+    componentDidMount(): void {
+        this.getData();
+    }
+
     render() {
         if (this.state.account.accountId) {
             return (

@@ -38,13 +38,9 @@ export default class PlayerDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            coachName: "Cook",
             selectedTeam: 0,
-            teams: [
-                {teamName: "Team 1", teamId: 1},
-                {teamName: "Team 2", teamId: 2},
-                {teamName: "Team 3", teamId: 3}
-            ]
+            teams: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -62,13 +58,19 @@ export default class PlayerDashboard extends React.Component {
         });
     }
 
+    componentDidMount(): void {
+        this.getData()
+    }
+
     getData() {
-        this.setState({ teams: [
+        this.setState({
+            teams: [
                 {teamName: "Team 1", teamId: 1},
                 {teamName: "Team 2", teamId: 2},
                 {teamName: "Team 3", teamId: 3},
                 {teamName: "Team 4", teamId: 4}
-            ]})
+            ]
+        })
     }
 
     render() {

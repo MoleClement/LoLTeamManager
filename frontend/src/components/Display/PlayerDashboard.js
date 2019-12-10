@@ -46,7 +46,7 @@ export default class PlayerDashboard extends React.Component {
 
 
         return (
-            <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
+            <GridLayout className="layout" layout={layout} cols={12} rowHeight={35} width={1800}>
                 <div key={'0'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent style={{display: "inline-block"}}>

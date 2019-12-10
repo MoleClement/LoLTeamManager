@@ -35,7 +35,7 @@ import PlayerDashboard from "../Display/PlayerDashboard";
 import CoachDashboard from "../Display/CoachDashboard";
 import {Link, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import Explore from "../Display/Explore";
-import nav from "../../nav";
+import nav from "../../util/nav";
 
 const drawerWidth = 240;
 

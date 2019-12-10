@@ -22,6 +22,22 @@ export default class WinRatioChart extends React.Component {
         }
     }
 
+    getData() {
+
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevProps.playerId !== this.props.playerId) {
+            this.getData();
+        }
+    }
+
+    componentDidMount(): void {
+        this.getData();
+    }
+
+
+
     render() {
         const data = [
             {name: this.state.days[0].day, Win: this.state.days[0].win, Lose: -this.state.days[0].lose},
@@ -33,7 +49,7 @@ export default class WinRatioChart extends React.Component {
         ];
         return (
             <div>
-                <BarChart width={600} height={300} data={data} stackOffset="sign"
+                <BarChart width={600} height={250} data={data} stackOffset="sign"
                           margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                     <CartesianGrid strokeDasharray="3 3" horizontal={false} vertical={false}/>
                     <XAxis dataKey="name"/>
@@ -49,7 +65,6 @@ export default class WinRatioChart extends React.Component {
             </div>
         );
     }
-
 }
 
 WinRatioChart.defaultProps = {

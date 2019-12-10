@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import AppDrawer from "./components/Drawer/AppDrawer";
-import history from "./history";
+import history from "./util/history";
 
 import { Router } from 'react-router';
 

@@ -30,8 +30,19 @@ export default class ProfileRank extends React.Component {
         };
     }
 
-    componentDidMount() {
 
+    getData() {
+
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevProps.playerId !== this.props.playerId) {
+            this.getData();
+        }
+    }
+
+    componentDidMount(): void {
+        this.getData();
     }
 
     render() {
