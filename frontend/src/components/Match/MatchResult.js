@@ -184,24 +184,9 @@ export default class MatchResult extends React.Component {
                     </Grid>
                     <Grid item xs/>
                 </Grid>
+
             </Grid>
         );
     }
 
 }
-
-MatchResult.defaultProps = {
-    icon: "/img/image-placeholder.png",
-    spell1: "",
-    spell2: "",
-    score: "0/0/0",
-    kda: "2.5",
-    result: "Victory",
-    creepScore: "100",
-    gold: "12K4",
-    queue: "Solo/Duo",
-    gameTime: "25:30",
-    date: "Yesterday",
-    runes: [],
-    equipments: []
-};

@@ -6,8 +6,6 @@ import CardActions from "@material-ui/core/CardActions/CardActions";
 
 import CardMedia from "@material-ui/core/CardMedia";
 import Avatar from "@material-ui/core/Avatar";
-import Grid from "@material-ui/core/Grid";
-import IconShape from "../Shape/IconShape";
 
 
 const bull = <span className={"bullet"}>•</span>;
@@ -18,48 +16,107 @@ export default class PlayerProfile extends React.Component {
         super(props);
         this.state = {
             player: {
-                playerName: this.props.playerName,
-                playerRating: this.props.playerRating,
+                playerName: "playerName",
+                playerRating: "playerRating",
             },
             account: {
                 accountId: this.props.id,
-                accountIcon: this.props.accountIcon,
-                accountLevel: this.props.accountLevel
+                accountImage: "accountImgUrl",
+                accountLevel: "accountLevel"
             },
             isConnected: this.props.isConnected,
             isInGame: this.props.isInGame,
-            gameSeason: this.props.gameSeason
+            gameSeason: "10"
         };
     }
 
     render() {
         if (this.state.account.accountId) {
-            return (
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                >
-                    <Grid item xs>
-                        <IconShape big/>
-                    </Grid>
-                    <Grid item xs>
-                        <Typography color="textPrimary" variant={"body2"} gutterBottom>
-                            {this.state.gameSeason}
-                        </Typography>
-                        <Typography variant="h5" component="h2" gutterBottom>
-                            {this.state.player.playerName}
-                        </Typography>
-                        <Typography variant="body2" component={"p"} gutterBottom>
-                            <span> Account Level:</span>{this.state.account.accountLevel}
-                        </Typography>
-                        <Typography variant="body2" component={"p"} gutterBottom>
-                            <span> Rating:</span> {this.state.player.playerRating}
-                        </Typography>
-                    </Grid>
-                </Grid>
-            );
+            if (this.state.isConnected) {
+                if (this.state.isInGame) {
+                    return (
+                        <Card>
+                            <CardMedia> <Avatar alt="Player's profile icons" src="/img/image-placeholder.png" style={{
+                                width: 90,
+                                height: 90
+                            }}/></CardMedia>
+                            <CardContent>
+                                <Typography color="textPrimary" gutterBottom>
+                                    Current Season: {this.state.gameSeason}
+                                </Typography>
+                                <Typography variant="h5" component="h2">
+                                    {this.state.player.playerName}
+                                </Typography>
+                                <Typography variant="body2" component={"p"}>
+                                    Account Level: {this.state.account.accountLevel}
+                                    <br/>
+                                    Rating: {this.state.player.playerRating}
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Typography size="small">
+                                    Connected {bull} Currently in game
+                                </Typography>
+                            </CardActions>
+                        </Card>
+                    );
+                } else {
+                    return (
+                        <Card>
+                            <CardMedia> <Avatar alt="Player's profile icons" src="/img/image-placeholder.png" style={{
+                                width: 90,
+                                height: 90
+                            }}/></CardMedia>
+                            <CardContent>
+                                <Typography color="textPrimary" gutterBottom>
+                                    Current Season: {this.state.gameSeason}
+                                </Typography>
+                                <Typography variant="h5" component="h2">
+                                    {this.state.player.playerName}
+                                </Typography>
+                                <Typography variant="body2" component={"p"}>
+                                    Account Level: {this.state.account.accountLevel}
+                                    <br/>
+                                    Rating: {this.state.player.playerRating}
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Typography size="small">
+                                    Connected {bull} Currently not in game
+                                </Typography>
+                            </CardActions>
+                        </Card>
+                    );
+                }
+
+            } else {
+                return (
+                    <Card>
+                        <CardMedia> <Avatar alt="Player's profile icons" src="/img/image-placeholder.png" style={{
+                            width: 90,
+                            height: 90
+                        }}/></CardMedia>
+                        <CardContent>
+                            <Typography color="textPrimary" gutterBottom>
+                                Current Season: {this.state.gameSeason}
+                            </Typography>
+                            <Typography variant="h5" component="h2">
+                                {this.state.player.playerName}
+                            </Typography>
+                            <Typography variant="body2" component={"p"}>
+                                Account Level: {this.state.account.accountLevel}
+                                <br/>
+                                Rating: {this.state.player.playerRating}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Typography size="small">
+                                Not Connected
+                            </Typography>
+                        </CardActions>
+                    </Card>
+                );
+            }
         } else {
             return (
                 <div>Player doest not exist</div>
@@ -67,16 +124,3 @@ export default class PlayerProfile extends React.Component {
         }
     }
 }
-
-PlayerProfile.defaultProps = {
-
-    playerName: "Feengh",
-    playerRating: "12,521 (0.08%)",
-    id: 10,
-    accountIcon: "",
-    accountLevel: "188",
-    isConnected: false,
-    isInGame: false,
-    gameSeason: "Profile season 10"
-
-};

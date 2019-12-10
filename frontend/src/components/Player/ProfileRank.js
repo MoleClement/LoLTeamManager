@@ -40,7 +40,6 @@ export default class ProfileRank extends React.Component {
                     container
                     direction="row"
                     justify="center"
-                    alignItems="center"
                 >
                     <Grid item xs={2}/>
                     <Grid item xs>
@@ -76,15 +75,4 @@ export default class ProfileRank extends React.Component {
 
     }
 
-}
-
-ProfileRank.defaultProps = {
-    rank: "Diamond II",
-    rankIcon: "rankImg",
-    rankLP: "25",
-    rankWinRate: "53",
-    rankQueue: "Single Queue",
-    winNumber: "120",
-    loseNumber: "100",
-    hasRank: true
 }

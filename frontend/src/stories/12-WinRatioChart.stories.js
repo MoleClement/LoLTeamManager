@@ -1,7 +1,7 @@
 import React from "react";
 import {storiesOf} from "@storybook/react/dist/client/preview";
 
-import WinRatioChart from "../components/Chart/WinRatioChart";
+import WiNRatioChart from "../components/Chart/WinRatioChart";
 
 export const data = [{
     day: "25.06",
@@ -31,4 +31,4 @@ export const data = [{
 ];
 
 storiesOf('WinRatioChart', module)
-    .add('default', () => <WinRatioChart days={data}/>);
+    .add('default', () => <WiNRatioChart days={data}/>);

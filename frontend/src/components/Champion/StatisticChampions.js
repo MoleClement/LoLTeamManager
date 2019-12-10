@@ -95,6 +95,23 @@ export default class StatisticChampion extends Component {
                         creepScore:
                             120
                     }
+                },
+                {
+                    champion: {
+                        championIcon: "/img/image-placeholder.png",
+                        championName:
+                            "Quinn"
+                    }
+                    ,
+                    result: {
+                        championPlayed: 100,
+                        championWinRate:
+                            50,
+                        championKDA:
+                            12,
+                        creepScore:
+                            120
+                    }
                 }],
             length: props.length
         }
@@ -106,7 +123,7 @@ export default class StatisticChampion extends Component {
                 <div> TODO LOADING DATA </div>
             );
         } else {
-            if (this.state.length < 6) {
+            if (this.state.length < 7) {
                 return (
                     <Grid
                         container
