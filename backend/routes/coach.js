@@ -17,6 +17,9 @@ router.put('/', coach.update);
 // call function delete in coach.controller
 router.delete('/', coach.delete);
 
+// call function findOne in coach.controller
+router.get('/getTeamsForCoach', coach.getTeamsForCoach);
+
 // call function delete in coach.controller
 router.put('/addTeamtoCoach', coach.addTeamtoCoach);
 

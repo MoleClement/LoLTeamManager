@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const Coach = require('../models/coach.model.js');
 
 // Return all the coaches from the db
@@ -77,8 +76,7 @@ exports.create = (req, res) => {
     console.log(coach);
 
     // Save the new coach in the db and returns it
-    coach
-        .save()
+    coach.save()
         .then(data => {
             res.send(data);
         })
@@ -221,4 +219,26 @@ exports.deleteTeamByIdFromCoach = (req, res) => {
                 });
             });
     }
+};
+
+
+// Return one coach by its id from the db
+exports.getTeamsForCoach = (req, res) => {
+    // Request all the information required in collection coach
+    if (!req.body.coachId) {
+        return res.status(400).send({
+            message: 'Need coachId data'
+        });
+    }
+
+    Coach.findById(req.body.coachId)
+        .then(coach => {
+            console.log(coach.teams);
+            res.send(coach.teams);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || `Cannot find coach with id ${req.body.coachId}`
+            });
+        });
 };

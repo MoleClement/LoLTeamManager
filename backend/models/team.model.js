@@ -1,50 +1,27 @@
 const mongoose = require("mongoose");
 
+//schema of our db
 var teamSchema = new mongoose.Schema({
     name:{
         type: String,
         required: "Required",
     },
     players:[{
-        id: String,
-        role: String,
-        masteredChampions: String,
-        dislikedChampions: String,
-        toTrain:String,
-        Practices:String
+        type: Number,
+        required: "Required",
     }],
-    sunday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    saturday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    friday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    thursday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    wednesday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    tuesday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
-    monday:[{
-        period: ['Morning', 'Afternoon', 'Evening', 'Night'],
-        value: Number
-    }],
+    training:{
+        sunday: [{ type: Number}],
+        wednesday: [{ type: Number}],
+        friday: [{ type: Number}],
+        saturday: [{ type: Number}],
+    },
     strategy:[{
-        name: String,
-        ratio: Number
+        name : { type: String},
+        winRate:  { type: Number}
     }]
+
 });
 
-module.exports = mongoose.model('Coach', teamSchema, 'coach');
+// export our model
+module.exports = mongoose.model('Team', teamSchema, 'team');
