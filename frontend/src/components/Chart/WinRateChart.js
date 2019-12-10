@@ -3,6 +3,7 @@ import PieChart from "recharts/lib/chart/PieChart";
 import Pie from "recharts/lib/polar/Pie";
 import Cell from "recharts/lib/component/Cell";
 import Legend from "recharts/lib/component/Legend";
+import ApiLTM from "../../Apis/ApiLTM";
 
 const COLORS = ['#205BC9', '#58B6E5'];
 
@@ -11,14 +12,27 @@ export default class WinRateChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            playerId : props.playerId,
-            win: props.win,
-            lose: props.lose,
-            winRatio: props.winRatio
+            playerId: props.playerId,
+            win: "",
+            lose: "",
+            winRatio: ""
         }
     }
 
     getData() {
+
+        const apiLTM = new ApiLTM();
+
+        apiLTM.getPlayerWinRate(this.state.playerId).then(response => {
+
+            this.setState({
+                win: response.data.win,
+                lose: response.data.lose,
+                winRatio: response.data.winRatio
+            })
+
+        }).catch(onerror => {
+        });
 
     }
 
@@ -58,9 +72,3 @@ export default class WinRateChart extends React.Component {
         );
     }
 }
-
-WinRateChart.defaultProps = {
-    win: 170,
-    lose: 52,
-    winRatio: "88.4%"
-};

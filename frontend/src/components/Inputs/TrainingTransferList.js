@@ -10,6 +10,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import ApiLTM from "../../Apis/ApiLTM";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,18 +42,30 @@ function union(a, b) {
     return [...a, ...not(b, a)];
 }
 
-export default function TrainingTransferList(teamId) {
+export default function TrainingTransferList(props) {
 
     const classes = useStyles();
     const practices = ["Communication", "Vision Control", "Dive", "Taking Objectives", "Team Fight"
         , "Lane Management", "Invade", "Coin Flip", "Wave Management", "Win Condition", "Itemization", "Draft"];
     const [checked, setChecked] = React.useState([]);
-    const [left, setLeft] = React.useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-        11]);
+    const [left, setLeft] = React.useState([]);
     const [right, setRight] = React.useState([]);
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
+
+    const updateData = () => {
+        const apiLTM = new ApiLTM();
+
+        let practicesToUpdate = {
+            right: right, ///Right (value = 1) SENDING INDEX -> BACK: UPDATE MATCHING INDEX ie: index O = Communication, index 1 = Vision Control
+            left: left ///Left (value = 0)
+        };
+
+        apiLTM.updateTeamPractices(props.teamId, practicesToUpdate).then(response => {
+        }).catch(onerror => {
+        });
+    };
 
     const handleToggle = value => () => {
         const currentIndex = checked.indexOf(value);
@@ -81,12 +94,14 @@ export default function TrainingTransferList(teamId) {
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
+        updateData();
     };
 
     const handleCheckedLeft = () => {
         setLeft(left.concat(rightChecked));
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
+        updateData();
     };
 
     const customList = (title, items) => (
@@ -128,6 +143,22 @@ export default function TrainingTransferList(teamId) {
             </List>
         </Card>
     );
+
+
+    const getData = () => {
+
+        const apiLTM = new ApiLTM();
+
+        apiLTM.getTeamById(props.teamId).then(response => {
+
+            setRight(response.data.practices.right);
+            setLeft(response.data.practices.left);
+
+        }).catch(onerror => {
+        });
+    };
+
+    getData();
 
     return (
         <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>

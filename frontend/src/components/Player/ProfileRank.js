@@ -7,6 +7,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import IconShape from "../Shape/IconShape";
+import ApiLTM from "../../Apis/ApiLTM";
 
 const bull = <span className={"bullet"}>•</span>;
 
@@ -32,6 +33,79 @@ export default class ProfileRank extends React.Component {
 
 
     getData() {
+        const apiLTM = new ApiLTM();
+
+        switch (this.state.queue) {
+            case "single" :
+                apiLTM.getPlayerRank(this.state.playerId).then(response => {
+
+                    this.setState(
+                        {
+                            playerId: response.data.playerId,
+                            rank: {
+                                rank: response.data.rank,
+                                rankIcon: response.data.rankIcon,
+                                rankLP: response.data.rankLP,
+                                rankWinRate: response.data.rankWinRate,
+                                rankQueue: response.data.rankQueue
+                            },
+                            result: {
+                                winNumber: response.data.winNumber,
+                                loseNumber: response.data.loseNumber
+                            },
+                            hasRank: response.data.hasRank
+                        }
+                    );
+                }).catch(onerror => {
+                });
+                break;
+            case "tft" :
+                apiLTM.getPlayerRankTFT(this.state.playerId).then(response => {
+
+                    this.setState(
+                        {
+                            playerId: response.data.playerId,
+                            rank: {
+                                rank: response.data.rank,
+                                rankIcon: response.data.rankIcon,
+                                rankLP: response.data.rankLP,
+                                rankWinRate: response.data.rankWinRate,
+                                rankQueue: response.data.rankQueue
+                            },
+                            result: {
+                                winNumber: response.data.winNumber,
+                                loseNumber: response.data.loseNumber
+                            },
+                            hasRank: response.data.hasRank
+                        }
+                    );
+                }).catch(onerror => {
+                });
+                break;
+            case "flex" :
+                apiLTM.getPlayerRankFlex(this.state.playerId).then(response => {
+
+                    this.setState(
+                        {
+                            playerId: response.data.playerId,
+                            rank: {
+                                rank: response.data.rank,
+                                rankIcon: response.data.rankIcon,
+                                rankLP: response.data.rankLP,
+                                rankWinRate: response.data.rankWinRate,
+                                rankQueue: response.data.rankQueue
+                            },
+                            result: {
+                                winNumber: response.data.winNumber,
+                                loseNumber: response.data.loseNumber
+                            },
+                            hasRank: response.data.hasRank
+                        }
+                    );
+                }).catch(onerror => {
+                });
+                break;
+        }
 
     }
 
@@ -99,4 +173,4 @@ ProfileRank.defaultProps = {
     winNumber: "120",
     loseNumber: "100",
     hasRank: true
-}
+};

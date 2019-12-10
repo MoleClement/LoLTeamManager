@@ -5,6 +5,7 @@ import DataDisplay from "../Display/DataDisplay";
 import DataShape from "../Shape/DataShape";
 import IconDisplay from "../Display/IconDisplay";
 import ChipShape from "../Shape/ChipShape";
+import ApiLTM from "../../Apis/ApiLTM";
 
 export default class MatchResult extends React.Component {
 
@@ -12,27 +13,70 @@ export default class MatchResult extends React.Component {
         super(props);
 
         this.state = {
-            playerId: props.playerId,
+            matchId: props.matchId,
             champion: {
-                icon: props.icon,
-                spell1: props.spell1,
-                spell2: props.spell2,
-                score: props.score,
-                kda: props.kda
+                icon: "",
+                spell1: "",
+                spell2: "",
+                score: "",
+                kda: ""
             },
             result: {
-                result: props.result,
-                creepScore: props.creepScore,
-                gold: props.gold,
+                result: "",
+                creepScore: "",
+                gold: "",
             },
             game: {
-                queue: props.queue,
-                gameTime: props.gameTime,
-                date: props.date
+                queue: "",
+                gameTime: "",
+                date: ""
             },
-            runes: props.runes,
-            equipments: props.equipments
+            runes: [],
+            equipments: []
         };
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevProps.matchId !== this.props.matchId) {
+            this.getData();
+        }
+    }
+
+    componentDidMount(): void {
+        this.getData();
+    }
+
+    getData() {
+
+        const apiLTM = new ApiLTM();
+
+        apiLTM.getMatchResult(this.state.matchId).then(response => {
+
+            this.setState({
+                matchId: response.data.matchId,
+                champion: {
+                    icon: response.data.icon,
+                    spell1: response.data.spell1,
+                    spell2: response.data.spell2,
+                    score: response.data.score,
+                    kda: response.data.kda
+                },
+                result: {
+                    result: response.data.result,
+                    creepScore: response.data.creepScore,
+                    gold: response.data.gold,
+                },
+                game: {
+                    queue: response.data.queue,
+                    gameTime: response.data.gameTime,
+                    date: response.data.date
+                },
+                runes: response.data.runes,
+                equipments: response.data.equipments
+            })
+
+        }).catch(onerror => {
+        });
     }
 
     render() {
@@ -68,61 +112,31 @@ export default class MatchResult extends React.Component {
         const spellsData = [{
             hasVariant: true,
             variant: "rounded",
-            icon: "/img/image-placeholder.png"
+            icon: this.state.champion.spell1
         },
             {
                 hasVariant: true,
                 variant: "rounded",
-                icon: "/img/image-placeholder.png"
+                icon: this.state.champion.spell2
             }
         ];
-        const equipmentData = [
-            {
-                hasVariant: true,
-                variant: "rounded",
-                icon: "/img/image-placeholder.png"
-            }, {
-                hasVariant: true,
-                variant: "rounded",
-                icon: "/img/image-placeholder.png"
-            }, {
-                hasVariant: true,
-                variant: "rounded",
-                icon: "/img/image-placeholder.png"
-            }, {
-                hasVariant: true,
-                variant: "rounded",
-                icon: "/img/image-placeholder.png"
-            }, {
-                hasVariant: true,
-                variant: "rounded",
-                icon: "/img/image-placeholder.png"
-            }, {
-                hasVariant: true,
-                variant: "rounded",
-                icon: "/img/image-placeholder.png"
-            },
-        ];
-        const runeData = [
-            {
 
-                icon: "/img/image-placeholder.png"
-            }, {
+        let equipmentData = [];
 
-                icon: "/img/image-placeholder.png"
-            }, {
+        this.state.equipments.map(equipment => {
+            equipmentData.push({
+                hasVariant: true,
+                variant: "rounded",
+                icon: equipment.icon
+            })
+        });
 
-                icon: "/img/image-placeholder.png"
-            }, {
-
-                icon: "/img/image-placeholder.png"
-            }, {
-
-                icon: "/img/image-placeholder.png"
-            }, {
-                icon: "/img/image-placeholder.png"
-            },
-        ];
+        let runeData = [];
+        this.state.runes.map(rune => {
+            runeData.push({
+                icon: rune.icon
+            })
+        });
 
         return (
             <Grid
@@ -188,21 +202,4 @@ export default class MatchResult extends React.Component {
             </Grid>
         );
     }
-
 }
-
-MatchResult.defaultProps = {
-    icon: "/img/image-placeholder.png",
-    spell1: "",
-    spell2: "",
-    score: "0/0/0",
-    kda: "2.5",
-    result: "Victory",
-    creepScore: "100",
-    gold: "12K4",
-    queue: "Solo/Duo",
-    gameTime: "25:30",
-    date: "Yesterday",
-    runes: [],
-    equipments: []
-};

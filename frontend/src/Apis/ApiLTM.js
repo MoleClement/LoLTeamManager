@@ -12,6 +12,54 @@ class ApiLTM {
 
     // Request to RIOT API
 
+    ///Return profile details
+    getPlayerProfile(playerId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+    getPlayerRank(playerId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+    getPlayerRankTFT(playerId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+    getPlayerRankFlex(playerId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+    getPlayerWinRatio(playerId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+    getPlayerStatisticChampions(playerId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+    getPlayerWinRate(playerId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+
+    getMatchList(playerId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+    getMatchResult(matchId) {
+        return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+    }
+
+
     // Request to DATABASE
 
     /// !!!!!! GET !!!!!!!

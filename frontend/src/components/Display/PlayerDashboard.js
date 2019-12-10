@@ -22,10 +22,6 @@ export default class PlayerDashboard extends React.Component {
         this.state = {playerId: props.match.params.playerId}
     }
 
-    getData() {
-
-    }
-
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
         if (prevProps.match.params.playerId !== this.props.match.params.playerId)
             this.setState({playerId: this.props.match.params.playerId})
@@ -44,7 +40,6 @@ export default class PlayerDashboard extends React.Component {
             {i: '7', x: 0, y: 12, w: 9, h: 6, static: true},
         ];
 
-
         return (
             <GridLayout className="layout" layout={layout} cols={12} rowHeight={35} width={1800}>
                 <div key={'0'}>
@@ -57,21 +52,21 @@ export default class PlayerDashboard extends React.Component {
                 <div key={'1'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank playerId={this.state.playerId}/>
+                            <ProfileRank playerId={this.state.playerId} queue={"single"}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'2'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank playerId={this.state.playerId}/>
+                            <ProfileRank playerId={this.state.playerId} queue={"flex"}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'3'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank playerId={this.state.playerId}/>
+                            <ProfileRank playerId={this.state.playerId} queue={"tft"}/>
                         </CardContent>
                     </Card>
                 </div>
@@ -95,7 +90,7 @@ export default class PlayerDashboard extends React.Component {
                         justifyContent: "center"
                     }}>
                         <CardContent>
-                            <StatisticChampions playerId={this.state.playerId} length={"5"}/>
+                            <StatisticChampions playerId={this.state.playerId}/>
                         </CardContent>
                     </Card>
                 </div>

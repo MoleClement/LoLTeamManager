@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import ApiLTM from "../../Apis/ApiLTM";
 
 export default function CreateTeamForm(props) {
     const [open, setOpen] = React.useState(false);
@@ -18,8 +19,21 @@ export default function CreateTeamForm(props) {
         setOpen(false);
     };
 
-    const handleCreate = () => {
-        ///call via props the function from the parent to update the team state and refresh
+    const handleCreate = (event) => {
+
+        const apiLTM = new ApiLTM();
+
+        if (event.target.value !== "")
+            apiLTM.createTeam(event.target.value).then(response => {
+                apiLTM.addTeamToCoach(props.coachId, response.teamId).then(response => {
+                })
+                    .catch(onerror => {
+
+                    });
+            }).catch(onerror => {
+
+            });
+        ///Call via props the function from the parent to update the team state and refresh
         handleClose();
         props.onCreateTeam();
 

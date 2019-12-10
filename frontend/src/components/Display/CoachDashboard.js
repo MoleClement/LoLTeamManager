@@ -30,8 +30,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import CreateTeamForm from "../Inputs/CreateTeamForm";
-
-///const ResponsiveGridLayout = WidthProvider(Responsive);
+import ApiLTM from "../../Apis/ApiLTM";
+import CoachProfile from "../Player/CoachProfile";
 
 export default class PlayerDashboard extends React.Component {
 
@@ -39,10 +39,11 @@ export default class PlayerDashboard extends React.Component {
         super(props);
         this.state = {
             coachName: "Cook",
+            coachId: 0,
             selectedTeam: 0,
             teams: []
         };
-
+        this.initializeCoachId();
         this.handleChange = this.handleChange.bind(this);
         this.onCreateTeam = this.onCreateTeam.bind(this);
     }
@@ -62,15 +63,24 @@ export default class PlayerDashboard extends React.Component {
         this.getData()
     }
 
+    initializeCoachId() {
+        const apiLTM = new ApiLTM();
+
+        apiLTM.getCoachByName(this.state.coachName).then(response => {
+            this.setState({coachId: response.data._id});
+        }).catch(onerror => {
+        });
+    }
+
     getData() {
-        this.setState({
-            teams: [
-                {teamName: "Team 1", teamId: 1},
-                {teamName: "Team 2", teamId: 2},
-                {teamName: "Team 3", teamId: 3},
-                {teamName: "Team 4", teamId: 4}
-            ]
-        })
+        const apiLTM = new ApiLTM();
+
+        apiLTM.getTeamsForCoach(this.state.coachId).then(response => {
+            this.setState({
+                teams: response.data.teams
+            });
+        }).catch(onerror => {
+        });
     }
 
     render() {
@@ -88,7 +98,7 @@ export default class PlayerDashboard extends React.Component {
             <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
                 <div key={'0'}>
 
-                    <CreateTeamForm onCreateTeam={this.onCreateTeam}/>
+                    <CreateTeamForm coachId={this.state.coachId} onCreateTeam={this.onCreateTeam}/>
 
                     <FormControl variant="outlined" style={{
                         margin: -40,
@@ -107,7 +117,7 @@ export default class PlayerDashboard extends React.Component {
                                 <em>None</em>
                             </MenuItem>
                             {this.state.teams.map((team, index) => {
-                                return <MenuItem value={index}>{team.teamName}</MenuItem>
+                                return <MenuItem value={index}><em>{team.teamName}</em></MenuItem>
                             })}
                         </Select>
                         <FormHelperText>Chose the team to display</FormHelperText>
@@ -117,7 +127,7 @@ export default class PlayerDashboard extends React.Component {
                 <div key={'1'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <PlayerProfile teamId={this.state.teams[this.state.selectedTeam].teamName}/>
+                            <CoachProfile coachId={this.state.coachId}/>
                         </CardContent>
                     </Card>
                 </div>
@@ -152,4 +162,5 @@ export default class PlayerDashboard extends React.Component {
             </GridLayout>
         );
     }
+
 }

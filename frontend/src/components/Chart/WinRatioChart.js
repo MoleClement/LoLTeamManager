@@ -10,6 +10,7 @@ import CustomMath from "../../function/CustomMath.js"
 import Tooltip from "recharts/lib/component/Tooltip";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import ApiLTM from "../../Apis/ApiLTM";
 
 export default class WinRatioChart extends React.Component {
 
@@ -18,12 +19,46 @@ export default class WinRatioChart extends React.Component {
 
         this.state = {
             playerId: props.playerId,
-            days: props.days,
+            days: [],
         }
     }
 
     getData() {
+        const apiLTM = new ApiLTM();
 
+        apiLTM.getPlayerWinRatio(this.state.playerId).then(response => {
+            this.setState(
+                {
+                    playerId: response.data.playerId,
+                    days: [{
+                        day: response.data.days[0].day,
+                        win: response.data.days[0].win,
+                        lose: response.data.days[0].lose
+                    }, {
+                        day: response.data.days[1].day,
+                        win: response.data.days[1].win,
+                        lose: response.data.days[1].lose
+                    }, {
+                        day: response.data.days[2].day,
+                        win: response.data.days[2].win,
+                        lose: response.data.days[2].lose
+                    }, {
+                        day: response.data.days[3].day,
+                        win: response.data.days[3].win,
+                        lose: response.data.days[3].lose
+                    }, {
+                        day: response.data.days[4].day,
+                        win: response.data.days[4].win,
+                        lose: response.data.days[4].lose
+                    }, {
+                        day: response.data.days[5].day,
+                        win: response.data.days[5].win,
+                        lose: response.data.days[5].lose
+                    }]
+                }
+            );
+        }).catch(onerror => {
+        });
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
@@ -35,8 +70,6 @@ export default class WinRatioChart extends React.Component {
     componentDidMount(): void {
         this.getData();
     }
-
-
 
     render() {
         const data = [
@@ -66,32 +99,3 @@ export default class WinRatioChart extends React.Component {
         );
     }
 }
-
-WinRatioChart.defaultProps = {
-    days: [{
-        day: "25.06",
-        win: 18,
-        lose: 12
-    }, {
-        day: "26.06",
-        win: 8,
-        lose: 9
-    }, {
-        day: "27.06",
-        win: 15,
-        lose: 5
-    }, {
-        day: "28.06",
-        win: 6,
-        lose: 12
-    }, {
-        day: "29.06",
-        win: 5,
-        lose: 3
-    }, {
-        day: "30.06",
-        win: 0,
-        lose: 5
-    }]
-
-};

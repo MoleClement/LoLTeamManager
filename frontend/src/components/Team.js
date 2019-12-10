@@ -6,6 +6,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import withStyles from "@material-ui/core/styles/withStyles";
+import ApiLTM from "../Apis/ApiLTM";
 
 const StyledTableCell = withStyles(theme => ({
     head: {
@@ -45,50 +46,41 @@ export default class Team extends React.Component {
     }
 
     getData() {
-        this.setState({
-            players: [
-                {
-                    playerName: "Foo",
-                    playerId: "id",
-                    role: "top",
-                    mastered: ["Test", "Test"],
-                    toTrain: ["Test", "Test"],
-                    disliked: ["Test"]
-                },
-                {
-                    playerName: "Jane",
-                    playerId: "id",
-                    role: "jungle",
-                    mastered: ["Shyvana", "Xin Zhao", "Graggas", "Lee Sin"],
-                    toTrain: ["Nunu", "Kha'Zix"],
-                    disliked: ["Ivern"]
-                },
-                {
-                    playerName: "John",
-                    playerId: "id",
-                    role: "mid",
-                    mastered: ["Qiyana", "Ryze", "Zed"],
-                    toTrain: ["Cassiopeia"],
-                    disliked: ["Twisted Fate"]
-                },
-                {
-                    playerName: "Do",
-                    playerId: "id",
-                    role: "adc",
-                    mastered: ["Lucian", "Xayah"],
-                    toTrain: ["Tristana", "Ezreal"],
-                    disliked: ["Miss Fortune"]
-                },
-                {
-                    playerName: "Doe",
-                    playerId: "id",
-                    role: "support",
-                    mastered: ["Zyra", "Velkoz", "Nautilus"],
-                    toTrain: ["Leona"],
-                    disliked: ["Yuumi"]
+        const apiLTM = new ApiLTM();
+
+        let playersId = [];
+
+        apiLTM.getPlayersForTeam(this.state.teamId).then(response => {
+            playersId = response.data.players
+        }).catch(onerror => {
+        });
+
+        let players = [];
+
+        playersId.map(player => {
+
+            apiLTM.getPlayerById(player).then(
+                response => {
+                    players.push(
+                        {
+                            playerName: response.data.playerName,
+                            playerId: response.data.playerId,
+                            role: response.data.role,
+                            mastered: response.data.mastered,
+                            toTrain: response.data.toTrain,
+                            disliked: response.data.disliked
+                        }
+                    )
                 }
-            ]
+            ).catch(onerror => {
+
+            });
+        });
+
+        this.setState({
+            players: players
         })
+
     }
 
     componentDidMount() {

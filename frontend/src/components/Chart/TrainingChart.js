@@ -4,6 +4,7 @@ import XAxis from "recharts/lib/cartesian/XAxis";
 import YAxis from "recharts/lib/cartesian/YAxis";
 import ZAxis from "recharts/lib/cartesian/ZAxis";
 import Scatter from "recharts/lib/cartesian/Scatter";
+import ApiLTM from "../../Apis/ApiLTM";
 
 export default class TrainingChart extends React.Component {
 
@@ -16,20 +17,19 @@ export default class TrainingChart extends React.Component {
                 {period: 'evening', index: 1, value: 150},
                 {period: 'night', index: 1, value: 0}
             ],
-
             data01: [
                 {period: 'morning', index: 1, value: 250},
                 {period: 'afternoon', index: 1, value: 250},
                 {period: 'evening', index: 1, value: 100},
                 {period: 'night', index: 1, value: 125}
             ],
-
             data02: [
                 {period: 'morning', index: 1, value: 100},
                 {period: 'afternoon', index: 1, value: 150},
                 {period: 'evening', index: 1, value: 100},
                 {period: 'night', index: 1, value: 0}
-            ], data03: [
+            ],
+            data03: [
                 {period: 'morning', index: 1, value: 100},
                 {period: 'afternoon', index: 1, value: 150},
                 {period: 'evening', index: 1, value: 100},
@@ -53,6 +53,7 @@ export default class TrainingChart extends React.Component {
 
 
     componentDidMount(): void {
+        this.getData();
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
@@ -61,33 +62,42 @@ export default class TrainingChart extends React.Component {
     }
 
     getData() {
-        this.setState({
-            data: [
-                {period: 'morning', index: 1, value: 150},
-                {period: 'afternoon', index: 1, value: 250},
-                {period: 'evening', index: 1, value: 300},
-                {period: 'night', index: 1, value: 100}
-            ],
 
-            data01: [
-                {period: 'morning', index: 1, value: 150},
-                {period: 'afternoon', index: 1, value: 200},
-                {period: 'evening', index: 1, value: 300},
-                {period: 'night', index: 1, value: 0}
-            ],
+        const apiLTM = new ApiLTM();
 
-            data02: [
-                {period: 'morning', index: 1, value: 125},
-                {period: 'afternoon', index: 1, value: 0},
-                {period: 'evening', index: 1, value: 200},
-                {period: 'night', index: 1, value: 150}
-            ], data03: [
-                {period: 'morning', index: 1, value: 200},
-                {period: 'afternoon', index: 1, value: 100},
-                {period: 'evening', index: 1, value: 300},
-                {period: 'night', index: 1, value: 0}
-            ]
-        })
+        apiLTM.getTeamById(this.state.teamId).then(response => {
+
+            this.setState({
+                data: [
+                    {period: 'morning', index: 1, value: response.data.practices.sunday[0]},
+                    {period: 'afternoon', index: 1, value: response.data.practices.sunday[1]},
+                    {period: 'evening', index: 1, value: response.data.practices.sunday[2]},
+                    {period: 'night', index: 1, value: response.data.practices.sunday[3]}
+                ],
+
+                data01: [
+                    {period: 'morning', index: 1, value: response.data.practices.wednesday[0]},
+                    {period: 'afternoon', index: 1, value: response.data.practices.wednesday[1]},
+                    {period: 'evening', index: 1, value: response.data.practices.wednesday[2]},
+                    {period: 'night', index: 1, value: response.data.practices.wednesday[3]}
+                ],
+
+                data02: [
+                    {period: 'morning', index: 1, value: response.data.practices.friday[0]},
+                    {period: 'afternoon', index: 1, value: response.data.practices.friday[1]},
+                    {period: 'evening', index: 1, value: response.data.practices.friday[2]},
+                    {period: 'night', index: 1, value: response.data.practices.friday[3]}
+                ], data03: [
+                    {period: 'morning', index: 1, value: response.data.practices.saturday[0]},
+                    {period: 'afternoon', index: 1, value: response.data.practices.saturday[1]},
+                    {period: 'evening', index: 1, value: response.data.practices.saturday[2]},
+                    {period: 'night', index: 1, value: response.data.practices.saturday[3]}
+                ]
+            })
+
+        }).catch(onerror => {
+        });
+
     }
 
     render() {

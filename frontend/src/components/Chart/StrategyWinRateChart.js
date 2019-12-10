@@ -3,6 +3,7 @@ import {
     Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
 } from 'recharts';
 import Legend from "recharts/lib/component/Legend";
+import ApiLTM from "../../Apis/ApiLTM";
 
 export default class StrategyWinRateChart extends React.Component {
 
@@ -10,7 +11,7 @@ export default class StrategyWinRateChart extends React.Component {
         super(props);
 
         this.state = {
-            data: props.data,
+            data: [],
             teamId: props.teamId
         }
     }
@@ -19,27 +20,47 @@ export default class StrategyWinRateChart extends React.Component {
     componentDidMount() {
     }
 
-    getTeamData(id) {
-        this.setState({
-            data: [
-                {
-                    strategy: 'Split Push', A: 67, B: 50, fullMark: 100,
-                },
-                {
-                    strategy: 'Poke', A: 45, B: 50, fullMark: 100,
-                },
-                {
-                    strategy: 'Protect the Carry', A: 86, B: 50, fullMark: 100,
-                },
-                {
-                    strategy: 'Area of Effect', A: 26, B: 50, fullMark: 100,
-                },
-                {
-                    strategy: 'Swap Lane', A: 58, B: 50, fullMark: 100,
-                }
-            ],
-            teamId: this.props.teamId
-        })
+    getTeamData() {
+
+        const apiLTM = new ApiLTM();
+
+        apiLTM.getTeamById(this.state.teamId).then(response => {
+            this.setState({
+                data: [
+                    {
+                        strategy: response.data.strategy[0].name,
+                        A: response.data.strategy[0].winRate,
+                        B: 50,
+                        fullMark: 100,
+                    },
+                    {
+                        strategy: response.data.strategy[1].name,
+                        A: response.data.strategy[1].winRate,
+                        B: 50,
+                        fullMark: 100,
+                    },
+                    {
+                        strategy: response.data.strategy[2].name,
+                        A: response.data.strategy[2].winRate,
+                        B: 50,
+                        fullMark: 100,
+                    },
+                    {
+                        strategy: response.data.strategy[3].name,
+                        A: response.data.strategy[3].winRate,
+                        B: 50,
+                        fullMark: 100,
+                    },
+                    {
+                        strategy: response.data.strategy[4].name, A: response.data.strategy[4].winRate, fullMark: 100,
+                    }
+                ],
+                teamId: this.props.teamId
+            })
+        }).catch(onerror => {
+        });
+
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
