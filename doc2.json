@@ -1,0 +1,98 @@
+{
+	"Coach" :[
+		{"id":"Cook","Teams":"NGABETA,NGAALPHA",}
+	],
+
+	"Teams":
+[
+		"NGABETA" :[
+			"Players" : [
+				{"id":"Onyx Sly","Role":"Mid","Mastered Champions":"Qiyana","Disliked Champions":"Twisted Fate","To Train":"Cassiopeia","Practices":"D"},
+				{"id":"Feengh","Role":"Jungle","Mastered Champions":"Shyvana","Disliked Champions":"Ivern","To Train":"Nunu","Practices":"D"},
+				{"id":"Shotetsu","Role":"Top","Mastered Champions":"Yasuo","Disliked Champions":"Sion","To Train":"Fiora","Practices":"D"},
+				{"id":"Kzenn","Role":"ADC","Mastered Champions":"Lucian","Disliked Champions":"Miss Fortune","To Train":"Tristana","Practices":"D"},
+				{"id":"SmileCookie","Role":"Support","Mastered Champions":"Zyra","Disliked Champions":"Yuumi","To Train":"Leona","Practices":"D"},
+		]
+			"Sunday" :[
+				{"period": "Morning","value":"250"},
+				{"period": "Afternoon","value":"250"},
+				{"period": "Evening","value":"100"},
+				{"period": "Night","value":"125"},
+		],
+
+			"Saturday" :[
+				{"period": "Morning","value":"100"},
+				{"period": "Afternoon","value":"150"},
+				{"period": "Evening","value":"100"},
+				{"period": "Night","value":"0"},
+		],	
+
+			"Wednesday" :[
+				{"period": "Morning","value":"100"},
+				{"period": "Afternoon","value":"150"},
+				{"period": "Evening","value":"100"},
+				{"period": "Night","value":"100"},
+				],
+
+			"Friday" :[
+				{"period": "Morning","value":"0"},
+				{"period": "Afternoon","value":"50"},
+				{"period": "Evening","value":"100"},
+				{"period": "Night","value":"150"},
+		],
+
+			"Stratégie":[
+				{"Nom":"Poke","Ratio":"0.70"},
+				{"Nom":"Split Push","Ratio":"0.30"},
+				{"Nom":"Swap Lanes","Ratio":"0.80"},
+				{"Nom":"Protect the carry","Ratio":"0.50"},
+				{"Nom":"Area of effect","Ratio":"0.40"},
+		]
+
+		],
+		"NGAALPHA" :[
+			"Players" : [
+				{"id":"Legolas","Role":"Mid","Mastered Champions":"Diana","Disliked Champions":"Fizz","To Train":"Talo,","Practices":"D"},
+				{"id":"Gimli","Role":"Jungle","Mastered Champions":"Amumu","Disliked Champions":"Elise","To Train":"Kindred","Practices":"D"},
+				{"id":"Aragorn","Role":"Top","Mastered Champions":"Kennen","Disliked Champions":"Kled","To Train":"Nasus","Practices":"D"},
+				{"id":"Gandalf","Role":"ADC","Mastered Champions":"Kalista","Disliked Champions":"Sivir","To Train":"Vayne","Practices":"D"},
+				{"id":"Boromir","Role":"Support","Mastered Champions":"Blitzcranck","Disliked Champions":"Thresh","To Train":"Zyra","Practices":"D"},
+			]
+			"Sunday" :[
+				{"period": "Morning","value":"100"},
+				{"period": "Afternoon","value":"50"},
+				{"period": "Evening","value":"150"},
+				{"period": "Night","value":"75"},
+			],
+
+			"Saturday" :[
+				{"period": "Morning","value":"0"},
+				{"period": "Afternoon","value":"0"},
+				{"period": "Evening","value":"150"},
+				{"period": "Night","value":"50"},
+			],	
+
+			"Wednesday" :[
+				{"period": "Morning","value":"0"},
+				{"period": "Afternoon","value":"0"},
+				{"period": "Evening","value":"200"},
+				{"period": "Night","value":"0"},
+			],
+
+			"Friday" :[
+				{"period": "Morning","value":"50"},
+				{"period": "Afternoon","value":"50"},
+				{"period": "Evening","value":"50"},
+				{"period": "Night","value":"100"},
+			],
+
+			"Strategie":[
+				{"Nom":"Poke","Ratio":"0.50"},
+				{"Nom":"ALL IN","Ratio":"0.10"},
+				{"Nom":"Swap Lanes","Ratio":"0.90"},
+				{"Nom":"Protect the carry","Ratio":"0.45"},
+				{"Nom":"Area of effect","Ratio":"0.50"},
+			]	
+		]
+]
+};
