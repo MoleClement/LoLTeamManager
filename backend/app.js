@@ -26,6 +26,7 @@ var championRouter = require('./routes/champions');*/
 var coachRouter = require('./routes/coach');
 var coachesRouter = require('./routes/coaches');
 var teamRouter = require('./routes/team');
+var playerRouter = require('./routes/player');
 
 var app = express();
 
@@ -41,5 +42,6 @@ app.use('/matches', matchRouter);
 app.use('/coach', coachRouter);
 app.use('/coaches', coachesRouter);
 app.use('/team', teamRouter);
+app.use('/player', playerRouter);
 
 module.exports = app;
