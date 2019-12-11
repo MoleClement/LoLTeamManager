@@ -69,6 +69,7 @@ export default class Team extends React.Component {
 
             let players = [];
             this.state.playersId.map(player => {
+
                 apiLTM2.getPlayerById(player).then(response => {
 
                         players.push({
@@ -81,25 +82,14 @@ export default class Team extends React.Component {
                         });
                     }
                 ).then(() => {
-                    console.log(players);
                     this.setState({players: players});
                 }).catch(onerror => {
                 });
 
             });
-
-
         }).then()
             .catch(onerror => {
             });
-
-
-        ///    this.state.playersId.map(player => {
-
-        /// console.log(player);
-
-
-        // });
     }
 
     render() {

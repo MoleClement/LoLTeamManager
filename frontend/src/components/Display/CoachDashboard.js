@@ -43,6 +43,7 @@ export default class PlayerDashboard extends React.Component {
             coachId: "5deed64f914e0f3154154d7e",
             selectedTeam: -1,
             teams: [],
+            teamsName: [],
             isLoading: false
         };
 
@@ -51,17 +52,18 @@ export default class PlayerDashboard extends React.Component {
     }
 
     handleChange(event) {
-        console.log("value" + event.target.value);
+        console.log("value: 'event' " + event.target.value);
+        console.log("Team ID: 'event' " + this.state.teams[event.target.value]);
         this.setState({
             selectedTeam: event.target.value,
-        })
+        });
+
+
     }
 
     onCreateTeam() {
         this.getData();
-        this.setState({
-            selectedTeam: (this.state.teams.length - 1),
-        });
+       
     }
 
     componentDidMount() {
@@ -94,6 +96,16 @@ export default class PlayerDashboard extends React.Component {
                 teams: response.data,
                 isLoading: false
             });
+
+            let teamDetails = [];
+            this.state.teams.map(teamId => {
+                apiLTM2.getTeamById(teamId).then(response2 => {
+                    teamDetails.push(response2.data.name);
+                }).then(() => {
+                    this.setState({teamsName: teamDetails})
+                })
+            });
+
         }).catch(onerror => {
         });
     }
@@ -108,102 +120,99 @@ export default class PlayerDashboard extends React.Component {
             {i: '4', x: 0, y: 7, w: 3, h: 10, static: true},
             {i: '5', x: 3, y: 12, w: 8, h: 5, static: true},
         ];
-        if (this.state.selectedTeam > -1) {
-            return (
-                <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
-                    <div key={'0'}>
 
-                        <CreateTeamForm coachId={this.state.coachId} onCreateTeam={this.onCreateTeam}/>
+        let StrategyWinRateChartC;
+        let TrainingTransferListC;
+        let TrainingChartC;
+        let TeamC;
 
-                        <FormControl variant="outlined" style={{
-                            margin: -40,
-                            minWidth: 120,
-                            float: "right"
-                        }}>
-                            <InputLabel id="demo-simple-select-outlined-label">Team</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-outlined-label"
-                                id="demo-simple-select-outlined"
-                                value={this.selectedTeam}
-                                onChange={this.handleChange}
-                                labelWidth={50}
-                            >
-                                <MenuItem value="" disabled>
-                                    Name
-                                </MenuItem>
-                                {this.state.teams.map((team, index) => {
-                                    return <MenuItem value={index}><em>{team}</em></MenuItem>
-                                })}
-                            </Select>
-                            <FormHelperText>Chose the team to display</FormHelperText>
-                        </FormControl>
+        if (this.state.selectedTeam === -1) {
 
-                    </div>
-                    <div key={'1'}>
-                        <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
-                            <CardContent>
-                                <CoachProfile coachName={this.state.coachName} coachId={this.state.coachId}/>
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <div key={'2'}>
-                        <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
-                            <CardContent>
-                                <StrategyWinRateChart teamId={this.state.teams[this.state.selectedTeam]}/>
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <div key={'3'}>
-                        <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
-                            <CardContent>
-                                <TrainingTransferList teamId={this.state.teams[this.state.selectedTeam]}/>
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <div key={'4'}>
-                        <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
-                            <CardContent>
-                                <TrainingChart teamId={this.state.teams[this.state.selectedTeam]}/>
-                            </CardContent>
-                        </Card>
-                    </div>
-                    <div key={'5'}>
-                        <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
-                            <CardContent>
-                                <Team teamId={this.state.teams[this.state.selectedTeam]}/>
-                            </CardContent>
-                        </Card>
-                    </div>
-                </GridLayout>
-            );
-        } else return (
-            <div style={{width:'90vw'}} >
-                <CreateTeamForm coachId={this.state.coachId} onCreateTeam={this.onCreateTeam}/>
+            StrategyWinRateChartC = TrainingTransferListC = TrainingChartC = TeamC = <div/>
 
-                <FormControl variant="outlined" style={{
-                    margin: -40,
-                    minWidth: 120,
-                    float: "right"
-                }}>
-                    <InputLabel id="demo-simple-select-outlined-label">Team</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value={this.selectedTeam}
-                        onChange={this.handleChange}
-                        labelWidth={50}
-                    >
-                        <MenuItem value={-1} disabled>
-                            Name
-                        </MenuItem>
-                        {this.state.teams.map((team, index) => {
-                            return <MenuItem value={index}><em>{team}</em></MenuItem>
-                        })}
-                    </Select>
-                    <FormHelperText>Chose the team to display</FormHelperText>
-                </FormControl>
-            </div>
-        )
+        } else {
+            console.log("value: 'state' " + this.state.selectedTeam);
+            console.log("Team ID: 'state' " + this.state.teams[this.state.selectedTeam]);
+
+            StrategyWinRateChartC = <StrategyWinRateChart
+                teamId={this.state.teams[this.state.selectedTeam]}/>;
+
+            TrainingChartC = <TrainingChart teamId={this.state.teams[this.state.selectedTeam]}/>;
+
+            TrainingTransferListC = <TrainingTransferList
+                teamId={this.state.teams[this.state.selectedTeam]}/>;
+
+            TeamC = <Team teamId={this.state.teams[this.state.selectedTeam]}/>;
+
+        }
+        return (
+            <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
+                <div key={'0'}>
+
+                    <CreateTeamForm coachId={this.state.coachId} onCreateTeam={this.onCreateTeam}/>
+
+                    <FormControl variant="outlined" style={{
+                        margin: -40,
+                        minWidth: 120,
+                        float: "right"
+                    }}>
+                        <InputLabel id="demo-simple-select-outlined-label">Team Name</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value={this.selectedTeam}
+                            onChange={this.handleChange}
+                            labelWidth={90}
+                        >
+                            <MenuItem value="" disabled>
+                                Team Name
+                            </MenuItem>
+                            {this.state.teamsName.map((team, index) => {
+                                return <MenuItem value={index}><em>{team}</em></MenuItem>
+                            })}
+                        </Select>
+                        <FormHelperText>Chose the team to display</FormHelperText>
+                    </FormControl>
+
+                </div>
+                <div key={'1'}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <CardContent>
+                            <CoachProfile coachName={this.state.coachName} coachId={this.state.coachId}/>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <div key={'2'}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <CardContent>
+                            {StrategyWinRateChartC}
+                        </CardContent>
+                    </Card>
+                </div>
+                <div key={'3'}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <CardContent>
+                            {TrainingTransferListC}
+                        </CardContent>
+                    </Card>
+                </div>
+                <div key={'4'}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
+                        <CardContent>
+                            {TrainingChartC}
+                        </CardContent>
+                    </Card>
+                </div>
+                <div key={'5'}>
+                    <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <CardContent>
+                            {TeamC}
+                        </CardContent>
+                    </Card>
+                </div>
+            </GridLayout>
+        );
     }
 
 }
