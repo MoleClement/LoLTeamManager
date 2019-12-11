@@ -13,7 +13,7 @@ player-dashboard -> Front
 
 #### WIP:  
 
-player-dashboard -> Back : API call response data formating
+player-dashboard -> Back : API call response data formating   
 Loom  
 Host online   
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- ---- -- -- -- -- -- -- -- -- -- --
