@@ -3,13 +3,13 @@
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 ## ECE PARIS: 
-Môle Clément / Fong Sarah / Yvinec Ruben
+Môle Clément / Fong Sarah / Yvinec Ruben<br/>
 
-Loom: In progress 
-Online: In progress
+Loom: In progress<br/>
+Online: In progress<br/>
 
-Working for now : coach-dashboard
-Front : player-dashboard 
+Working for now : coach-dashboard<br/>
+Front : player-dashboard<br/>
 WIP: Back : player-dashboard api data formating
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
