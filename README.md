@@ -9,11 +9,11 @@ Môle Clément / Fong Sarah / Yvinec Ruben
 #### Implemented:   
 
 coach-dashboard  
-Front : player-dashboard  
+player-dashboard -> Front 
 
 #### WIP:  
 
-Back : player-dashboard api data formating
+player-dashboard -> Back : API call response data formating
 Loom  
 Host online   
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- ---- -- -- -- -- -- -- -- -- -- --
