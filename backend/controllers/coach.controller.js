@@ -147,30 +147,28 @@ exports.update = (req, res) => {
     }
 };
 
-// add a team to a coach by its id
 exports.addTeamToCoach = (req, res) => {
+
     // Request all the information required in collection coach
-    if (!req.body.coachId || !req.body.teamId) {
+    if (!req.body.teamId || !req.body.coachId) {
         return res.status(400).send({
-            message: 'Need coachId and teamId data'
+            message: 'Need teamId and coachId data'
         });
-    }
-
-    Coach.findById(req.body.coachId)
-        .then(coach => {
-            console.log(coach.teams);
-            coach.teams.push(req.body.teamId);
-            console.log(coach.teams);
-            res.send(coach);
-            coach.save();
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || `Cannot find coach with id ${req.body.coachId}`
+    } else {
+        // find the coach
+        Coach.findOneAndUpdate({_id: req.body.coachId}, {$push: {teams: req.body.teamId}})
+            .then(team => {
+                // if not found : error message
+                if (!team) {
+                    return res.status(404).send({
+                        message: 'Team not found'
+                    });
+                }
+                //if found : return a message
+                res.send({message: `Team updated`});
             });
-        });
+    }
 };
-
 
 // delete a team to a coach by its id
 exports.deleteTeamFromCoach = (req, res) => {

@@ -10,6 +10,7 @@ import ApiLTM from "../../Apis/ApiLTM";
 
 export default function CreateTeamForm(props) {
     const [open, setOpen] = React.useState(false);
+    const [name, setName] = React.useState("");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -19,13 +20,17 @@ export default function CreateTeamForm(props) {
         setOpen(false);
     };
 
-    const handleCreate = (event) => {
+    const handleChange = (event) => {
+        setName(event.target.value);
+    };
+
+    const handleCreate = () => {
 
         const apiLTM = new ApiLTM();
 
-        if (event.target.value !== "")
-            apiLTM.createTeam(event.target.value).then(response => {
-                apiLTM.addTeamToCoach(props.coachId, response.teamId).then(response => {
+        if (name !== "")
+            apiLTM.createTeam(name).then(response => {
+                apiLTM.addTeamToCoach(props.coachId, response.data._id).then(response => {
                 })
                     .catch(onerror => {
 
@@ -36,7 +41,6 @@ export default function CreateTeamForm(props) {
         ///Call via props the function from the parent to update the team state and refresh
         handleClose();
         props.onCreateTeam();
-
     };
 
     return (
@@ -58,6 +62,7 @@ export default function CreateTeamForm(props) {
                         label="Team Name"
                         type="name"
                         fullWidth
+                        onChange={handleChange}
                     />
                 </DialogContent>
                 <DialogActions>

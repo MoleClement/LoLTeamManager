@@ -21,6 +21,7 @@ exports.getTeamById = (req, res) => {
         });
 };
 
+
 // Return all the id of players from a team
 exports.getPlayersForTeam = (req, res) => {
     // Request all the information required in collection coach
@@ -42,6 +43,7 @@ exports.getPlayersForTeam = (req, res) => {
         });
 };
 
+
 // Create a new team in the db
 exports.createTeam = (req, res) => {
 
@@ -55,9 +57,58 @@ exports.createTeam = (req, res) => {
     // Create a new coach
     const team = new Team({
         name: req.body.teamName,
-        /*players: req.body.players
-        training: ,
-        strategy: */
+        training: {
+            "sunday": [
+                100,
+                200,
+                300,
+                100
+            ],
+            "wednesday": [
+                0,
+                200,
+                200,
+                100
+            ],
+            "friday": [
+                125,
+                300,
+                200,
+                0
+            ],
+            "saturday": [
+                250,
+                250,
+                0,
+                100
+            ]
+        },
+        practices: {
+            "left": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+            "right": []
+        },
+        strategy: [
+            {
+                name: "Split Push",
+                winRate: 75
+            },
+            {
+                name: "Protect the Carry",
+                winRate: 90
+            },
+            {
+                name: "Area of Effect",
+                winRate: 85
+            },
+            {
+                name: "Swap Lanes",
+                "winRate": 55
+            },
+            {
+                name: "Poke",
+                winRate: 45
+            }
+        ]
     });
     console.log(team);
 
@@ -82,8 +133,7 @@ exports.updateTeamPractices = (req, res) => {
         return res.status(400).send({
             message: 'Need teamId and practicesToUpdate data'
         });
-    }
-    else {
+    } else {
         const filter = {_id: req.body.teamId};
         const update = {practices: req.body.practices};
 
@@ -101,5 +151,53 @@ exports.updateTeamPractices = (req, res) => {
                     res.send({message: `Team updated`});
                 });
         }
+    }
+};
+
+// update a coach by its name
+exports.addPlayerToTeam = (req, res) => {
+
+    // Request all the information required in collection coach
+    if (!req.body.teamId || !req.body.playerId) {
+        return res.status(400).send({
+            message: 'Need teamId and player Id data'
+        });
+    } else {
+        // find the coach
+        Team.findOneAndUpdate({_id: req.body.teamId}, {$push: {players: req.body.playerId}})
+            .then(team => {
+                // if not found : error message
+                if (!team) {
+                    return res.status(404).send({
+                        message: 'Team not found'
+                    });
+                }
+                //if found : return a message
+                res.send({message: `Team updated`});
+            });
+    }
+};
+
+// delete a player by its name
+exports.deletePlayerFromTeam = (req, res) => {
+
+    // Request all the information required in collection coach
+    if (!req.body.teamId || !req.body.playerId) {
+        return res.status(400).send({
+            message: 'Need teamId and player Id data'
+        });
+    } else {
+        // find the coach
+        Team.findOneAndUpdate({_id: req.body.teamId}, {$pull: {players: req.body.playerId}})
+            .then(team => {
+                // if not found : error message
+                if (!team) {
+                    return res.status(404).send({
+                        message: 'Team not found'
+                    });
+                }
+                //if found : return a message
+                res.send({message: `Team updated`});
+            });
     }
 };

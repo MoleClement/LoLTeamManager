@@ -41,10 +41,9 @@ export default class PlayerDashboard extends React.Component {
         this.state = {
             coachName: "Cook",
             coachId: "5deed64f914e0f3154154d7e",
-            selectedTeam: -1,
+            selectedTeam: 0,
             teams: [],
-            teamsName: [],
-            isLoading: false
+            teamsName: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -52,18 +51,24 @@ export default class PlayerDashboard extends React.Component {
     }
 
     handleChange(event) {
-        console.log("value: 'event' " + event.target.value);
-        console.log("Team ID: 'event' " + this.state.teams[event.target.value]);
-        this.setState({
-            selectedTeam: event.target.value,
-        });
+        event.preventDefault();
+        if (event.target.value !== this.state.selectedTeam)
+            this.setState({
+                selectedTeam: event.target.value,
+            });
+        console.log(this.state);
+        /*  this.setState({
+              selectedTeam: event.target.value,
+          });*/
+    }
 
-
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if (prevState.selectedTeam !== this.state.selectedTeam || prevState.coachId !== this.state.coachId)
+            this.getData();
     }
 
     onCreateTeam() {
-        this.getData();
-       
+        this.setState({selectedTeam: this.state.teams.length});
     }
 
     componentDidMount() {
@@ -71,32 +76,26 @@ export default class PlayerDashboard extends React.Component {
     }
 
     initializeCoachId() {
-        this.setState({isLoading: true});
         const apiLTM = new ApiLTM();
         apiLTM.getCoachByName(this.state.coachName).then(response => {
             this.setState({
                 coachId: response.data._id,
                 coachName: response.data.name,
                 selectedTeam: null,
-                teams: null,
-                isLoading: false
+                teams: null
             });
         }).catch(onerror => {
         });
     }
 
     getData() {
-        this.setState({isLoading: true});
         const apiLTM = new ApiLTM();
         const apiLTM2 = new ApiLTM();
 
         apiLTM.getTeamsForCoach(this.state.coachId).then(response => {
-            console.log("get data: " + response.data);
             this.setState({
-                teams: response.data,
-                isLoading: false
+                teams: response.data
             });
-
             let teamDetails = [];
             this.state.teams.map(teamId => {
                 apiLTM2.getTeamById(teamId).then(response2 => {
@@ -118,7 +117,7 @@ export default class PlayerDashboard extends React.Component {
             {i: '2', x: 3, y: 2, w: 4, h: 10, static: true},
             {i: '3', x: 7, y: 2, w: 4, h: 10, static: true},
             {i: '4', x: 0, y: 7, w: 3, h: 10, static: true},
-            {i: '5', x: 3, y: 12, w: 8, h: 5, static: true},
+            {i: '5', x: 3, y: 12, w: 8, h: 12, static: true},
         ];
 
         let StrategyWinRateChartC;
@@ -126,23 +125,24 @@ export default class PlayerDashboard extends React.Component {
         let TrainingChartC;
         let TeamC;
 
-        if (this.state.selectedTeam === -1) {
+
+        if (this.state.selectedTeam < 1) {
 
             StrategyWinRateChartC = TrainingTransferListC = TrainingChartC = TeamC = <div/>
 
         } else {
-            console.log("value: 'state' " + this.state.selectedTeam);
-            console.log("Team ID: 'state' " + this.state.teams[this.state.selectedTeam]);
+            console.log("value: 'state' " + (this.state.selectedTeam - 1));
+            console.log("Team ID: 'state' " + this.state.teams[(this.state.selectedTeam - 1)]);
 
             StrategyWinRateChartC = <StrategyWinRateChart
-                teamId={this.state.teams[this.state.selectedTeam]}/>;
+                teamId={this.state.teams[(this.state.selectedTeam - 1)]}/>;
 
-            TrainingChartC = <TrainingChart teamId={this.state.teams[this.state.selectedTeam]}/>;
+            TrainingChartC = <TrainingChart teamId={this.state.teams[(this.state.selectedTeam - 1)]}/>;
 
             TrainingTransferListC = <TrainingTransferList
-                teamId={this.state.teams[this.state.selectedTeam]}/>;
+                teamId={this.state.teams[(this.state.selectedTeam - 1)]}/>;
 
-            TeamC = <Team teamId={this.state.teams[this.state.selectedTeam]}/>;
+            TeamC = <Team teamId={this.state.teams[(this.state.selectedTeam - 1)]}/>;
 
         }
         return (
@@ -164,11 +164,11 @@ export default class PlayerDashboard extends React.Component {
                             onChange={this.handleChange}
                             labelWidth={90}
                         >
-                            <MenuItem value="" disabled>
-                                Team Name
+                            <MenuItem value={0}>
+                                None
                             </MenuItem>
                             {this.state.teamsName.map((team, index) => {
-                                return <MenuItem value={index}><em>{team}</em></MenuItem>
+                                return <MenuItem value={index + 1}><em>{team}</em></MenuItem>
                             })}
                         </Select>
                         <FormHelperText>Chose the team to display</FormHelperText>

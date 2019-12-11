@@ -128,7 +128,12 @@ class ApiLTM {
     /// Create a team
     createTeam(teamName) {
         return axios
-            .post(`${API_URL}${API_KEY_TEAM}/createTeam`, {teamName: teamName});
+            .post(`${API_URL}${API_KEY_TEAM}`, {teamName: teamName});
+    }
+
+    createPlayer(newPlayer) {
+        return axios
+            .post(`${API_URL}${API_KEY_PLAYER}`, {player: newPlayer});
     }
 
     /*
@@ -149,9 +154,25 @@ class ApiLTM {
     /// !!!!!! UPDATE !!!!!!!
 
     /// Add a team to a coach
+
+    addPlayerToTeam(playerId, teamId) {
+        return axios
+            .put(`${API_URL}${API_KEY_TEAM}/addPlayerToTeam`, {playerId: playerId, teamId:teamId});
+    }
+
+    deletePlayerFromTeam(playerId, teamId) {
+        return axios
+            .put(`${API_URL}${API_KEY_TEAM}/deletePlayerFromTeam`, {playerId: playerId, teamId:teamId});
+    }
+
     addTeamToCoach(coachId, teamId) {
         return axios
             .put(`${API_URL}${API_KEY_COACH}/addTeamToCoach`, {coachId: coachId, teamId: teamId});
+    }
+
+    updatePlayer(player){
+        return axios
+            .put(`${API_URL}${API_KEY_PLAYER}`, {player: player});
     }
 
     /*
@@ -181,6 +202,7 @@ class ApiLTM {
                 .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
         }
     */
+
 
     /// Update team practices
     updateTeamPractices(teamId, practices) {
@@ -238,7 +260,10 @@ class ApiLTM {
                 .delete(`${API_URL}${API_KEY_PLAYER}/`);
         }
     */
-
+    deletePlayer(playerId){
+        return axios
+            .delete(`${API_URL}${API_KEY_PLAYER}`, {playerId: playerId});
+    }
     /*
         /// Delete all the player for a team from the database
         deletePlayersFromTeam(teamId) {
@@ -386,6 +411,7 @@ class ApiLTM {
                 .delete(`${API_URL}${API_KEY_COACH}/${id}`);
         }
     */
+
 
 }
 

@@ -34,23 +34,22 @@ exports.findById = (req, res) => {
 exports.create = (req, res) => {
     /*console.log(req.body);*/
     // Request all the informations required in collection player
-    if (!req.body.name || !req.body.role || !req.body.masteredChampions || !req.body.dislikedChampions || !req.body.toTrainChampions || !req.body.practices) {
+    if (!req.body.player.name || !req.body.player.role) {
         return res.status(400).send({
-            message: 'One field is empty'
+            message: 'Insert a valid name and select a role'
         });
     }
 
-    // Create a new coach
+    // Create a new Player
     const player = new Player({
-        name: req.body.name,
-        role: req.body.role,
-        masteredChampions : req.body.masteredChampions,
-        dislikedChampions : req.body.dislikedChampions,
-        toTrainChampions : req.body.toTrainChampions,
-        practices : req.body.practices,
+        name: req.body.player.name,
+        role: req.body.player.role,
+        masteredChampions: req.body.player.masteredChampions,
+        dislikedChampions: req.body.player.dislikedChampions,
+        toTrainChampions: req.body.player.toTrainChampions,
+        practices: req.body.player.practices,
 
     });
-    console.log(player);
 
     // Save the new coach in the db and returns it
     player
@@ -66,10 +65,43 @@ exports.create = (req, res) => {
         });
 };
 
-// delete a playerw by its name
+exports.update = (req, res) => {
+
+    // Request all the information required in collection coach
+    if (!req.body.player) {
+        return res.status(400).send({
+            message: 'Need player Id data'
+        });
+    } else {
+
+        const update = {
+            masteredChampions: req.body.player.masteredChampions,
+            dislikedChampions: req.body.player.dislikedChampions,
+            toTrainChampions: req.body.player.toTrainChampions,
+            name: req.body.player.name,
+            role: req.body.player.role,
+
+        };
+        // find the coach
+        Player.findOneAndUpdate({_id: req.body.player._id}, update)
+            .then(team => {
+                // if not found : error message
+                if (!team) {
+                    return res.status(404).send({
+                        message: 'Player not found'
+                    });
+                }
+                //if found : return a message
+                res.send({message: `Player updated`});
+            });
+    }
+
+};
+
+// delete a player by its name
 exports.delete = (req, res) => {
     // find the coach
-    Player.findOneAndDelete(req.body.id)
+    Player.findOneAndDelete(req.body.playerId)
         .then(player => {
             // if not found : error message
             if (!player) {
@@ -78,7 +110,7 @@ exports.delete = (req, res) => {
                 });
             }
             //if found : return a message
-            res.send({ message: `player deleted` });
+            res.send({message: `player deleted`});
         });
 };
 

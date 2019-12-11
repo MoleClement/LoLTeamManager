@@ -1,31 +1,9 @@
 import * as React from "react";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import TableBody from "@material-ui/core/TableBody";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ApiLTM from "../Apis/ApiLTM";
-
-const StyledTableCell = withStyles(theme => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-}))(TableCell);
-
-const StyledTableRow = withStyles(theme => ({
-    root: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.background.default,
-        },
-    },
-}))(TableRow);
-
+import MaterialTable from "material-table";
 
 export default class Team extends React.Component {
 
@@ -36,14 +14,6 @@ export default class Team extends React.Component {
             playersId: [],
             players: []
         }
-        /*       players: [{
-                   name: "",
-                   _id: "",
-                   role: "",
-                   masteredChampions: [],
-                   toTrainChampions: [],
-                   dislikedChampions: []
-               }]*/
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -55,6 +25,30 @@ export default class Team extends React.Component {
 
     componentDidMount() {
         this.getData();
+    }
+
+    onDeletePlayer(playerId) {
+        const apiLTM = new ApiLTM();
+        const apiLTM2 = new ApiLTM();
+        apiLTM.deletePlayerFromTeam(playerId, this.state.teamId).then(() => {
+            apiLTM2.deletePlayer(playerId);
+        }).catch();
+    }
+
+    onUpdatePlayer(player) {
+        const apiLTM = new ApiLTM();
+        apiLTM.updatePlayer(player).then().catch()
+    }
+
+    onCreatePlayer(newPlayer) {
+
+        const apiLTM = new ApiLTM();
+        const apiLTM2 = new ApiLTM();
+        apiLTM.createPlayer(newPlayer).then(response => {
+
+            apiLTM2.addPlayerToTeam(response.data._id, this.state.teamId);
+        }).catch();
+
     }
 
     getData() {
@@ -94,55 +88,78 @@ export default class Team extends React.Component {
 
     render() {
 
+        const columns = [
+            {title: 'Player', field: 'name'},
+            {
+                title: 'Role',
+                field: 'role',
+                lookup: {'Mid': 'Mid', 'Jungle': 'Jungle', 'Top': 'Top', 'ADC': 'ADC', 'Support': 'Support'}
+            },
+            {
+                title: 'Mastered Champions',
+                field: 'masteredChampions'
+            },
+            {
+                title: 'To Train Champions',
+                field: 'toTrainChampions'
+            }
+            ,
+            {
+                title: 'Disliked Champions',
+                field: 'dislikedChampions'
+            },
+        ];
+
         return (
-            <div style={{
-                width: '100%'
-            }}>
-                <Paper style={{
-                    width: '100%',
-                    overflowX: 'auto'
-                }}>
-                    <Table style={{minWidth: 650}} size="small" aria-label="a dense table">
-                        <TableHead>
-                            <StyledTableRow>
-                                <StyledTableCell>Player</StyledTableCell>
-                                <StyledTableCell align="right">Role</StyledTableCell>
-                                <StyledTableCell align="right" style={{overflowY: 'auto'}}>Mastered
-                                    Champion</StyledTableCell>
-                                <StyledTableCell align="right" style={{overflowY: 'auto'}}>To Train
-                                    Champion</StyledTableCell>
-                                <StyledTableCell align="right" style={{overflowY: 'auto'}}>Disliked
-                                    Champion</StyledTableCell>
-                            </StyledTableRow>
-                        </TableHead>
-                        <TableBody>
-                            {this.state.players.map(row => (
-                                <StyledTableRow key={row.name}>
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{row.role}</TableCell>
-                                    <TableCell align="right">{row.masteredChampions.map((champion, index) => {
-                                        if (row.masteredChampions.length > 1 && index !== row.masteredChampions.length - 1)
-                                            return (champion + ", ");
-                                        else return (champion);
-                                    })}</TableCell>
-                                    <TableCell align="right">{row.toTrainChampions.map((champion, index) => {
-                                        if (row.toTrainChampions.length > 1 && index !== row.toTrainChampions.length - 1)
-                                            return (champion + ", ");
-                                        else return (champion);
-                                    })}</TableCell>
-                                    <TableCell align="right">{row.dislikedChampions.map((champion, index) => {
-                                        if (row.dislikedChampions.length > 1 && index !== row.dislikedChampions.length - 1)
-                                            return (champion + ", ");
-                                        else return (champion);
-                                    })}</TableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Paper>
-            </div>
-        );
+            <MaterialTable
+                options={{
+                    pageSizeOptions: []
+                }}
+                title="Team Players"
+                columns={columns}
+                data={this.state.players}
+                editable={{
+                    onRowAdd: newPlayer =>
+                        new Promise(resolve => {
+                            setTimeout(() => {
+                                resolve();
+                                this.setState(prevState => {
+                                    const players = [...prevState.players];
+                                    this.onCreatePlayer(newPlayer);
+                                    players.push(newPlayer);
+                                    return {...prevState, players};
+                                });
+                            }, 600);
+                        }),
+                    onRowUpdate: (newPlayer, oldPlayer) =>
+                        new Promise(resolve => {
+                            setTimeout(() => {
+                                resolve();
+                                if (oldPlayer) {
+                                    this.setState(prevState => {
+                                        const players = [...prevState.players];
+                                        this.onUpdatePlayer(newPlayer);
+                                        players[players.indexOf(oldPlayer)] = newPlayer;
+                                        return {...prevState, players};
+                                    });
+                                }
+                            }, 600);
+                        }),
+                    onRowDelete: oldPlayer =>
+                        new Promise(resolve => {
+                            setTimeout(() => {
+                                resolve();
+                                this.setState(prevState => {
+                                    const players = [...prevState.players];
+                                    this.onDeletePlayer(oldPlayer._id);
+                                    players.splice(players.indexOf(oldPlayer), 1);
+                                    return {...prevState, players};
+                                });
+                            }, 600);
+                        }),
+                }}
+            />);
     }
+
+
 }

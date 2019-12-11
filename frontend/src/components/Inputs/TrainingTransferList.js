@@ -56,15 +56,17 @@ export default function TrainingTransferList(props) {
 
     const updateData = () => {
         const apiLTM = new ApiLTM();
-
         let practicesToUpdate = {
             right: right, ///Right (value = 1) SENDING INDEX -> BACK: UPDATE MATCHING INDEX ie: index O = Communication, index 1 = Vision Control
             left: left ///Left (value = 0)
+            // right: [0, 1, 2, 3, 4, 5],
+            // left: [6, 7, 8, 9, 10, 11]
         };
 
-        apiLTM.updateTeamPractices(props.teamId, practicesToUpdate).then(response => {
-        }).catch(onerror => {
-        });
+        if (practicesToUpdate.right.length + practicesToUpdate.left.length === 12)
+            apiLTM.updateTeamPractices(props.teamId, practicesToUpdate).catch(onerror => {
+            });
+
     };
 
     const handleToggle = value => () => {
@@ -94,15 +96,14 @@ export default function TrainingTransferList(props) {
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
-        updateData();
     };
 
     const handleCheckedLeft = () => {
         setLeft(left.concat(rightChecked));
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
-        updateData();
     };
+
 
     const customList = (title, items) => (
         <Card>
@@ -146,7 +147,7 @@ export default function TrainingTransferList(props) {
 
     useEffect(() => {
         getData();
-    },[props.teamId]);
+    }, [props.teamId]);
 
     const getData = () => {
 
@@ -160,6 +161,10 @@ export default function TrainingTransferList(props) {
         }).catch(onerror => {
         });
     };
+
+    useEffect(() => {
+        updateData();
+    }, [right, left]);
 
     return (
         <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>

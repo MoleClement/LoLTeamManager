@@ -1,19 +1,20 @@
 var express = require('express');
 var router = express.Router();
-var coach = require('../controllers/team.controller');
+var team = require('../controllers/team.controller');
 
 // call function getPlayersForTeam in team.controller
-router.get('/getPlayersForTeam', coach.getPlayersForTeam);
+router.get('/getPlayersForTeam', team.getPlayersForTeam);
 
 // call function getTeamById in team.controller
-router.get('/getTeamById', coach.getTeamById);
+router.get('/getTeamById', team.getTeamById);
 
 // call function createTeam in team.controller
-router.post('/createTeam', coach.createTeam);
+router.post('/', team.createTeam);
 
 // call function updateTeamPractices in team.controller
-router.put('/updateTeamPractices', coach.updateTeamPractices);
-
+router.put('/updateTeamPractices', team.updateTeamPractices);
+router.put('/addPlayerToTeam', team.addPlayerToTeam);
+router.put('/deletePlayerFromTeam', team.deletePlayerFromTeam);
 
 
 module.exports = router;

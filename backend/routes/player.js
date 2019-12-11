@@ -9,7 +9,7 @@ router.get('/', player.findById);
 router.post('/', player.create);
 
 // call function update in player.controller
-/*router.post('/', coach.update);*/
+router.put('/', player.update);
 
 // call function delete in player.controller
 router.delete('/', player.delete);
