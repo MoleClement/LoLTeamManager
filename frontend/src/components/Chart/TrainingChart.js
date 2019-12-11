@@ -11,32 +11,36 @@ export default class TrainingChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [
-                {period: 'morning', index: 1, value: 0},
-                {period: 'afternoon', index: 1, value: 300},
-                {period: 'evening', index: 1, value: 150},
-                {period: 'night', index: 1, value: 0}
-            ],
-            data01: [
-                {period: 'morning', index: 1, value: 250},
-                {period: 'afternoon', index: 1, value: 250},
-                {period: 'evening', index: 1, value: 100},
-                {period: 'night', index: 1, value: 125}
-            ],
-            data02: [
-                {period: 'morning', index: 1, value: 100},
-                {period: 'afternoon', index: 1, value: 150},
-                {period: 'evening', index: 1, value: 100},
-                {period: 'night', index: 1, value: 0}
-            ],
-            data03: [
-                {period: 'morning', index: 1, value: 100},
-                {period: 'afternoon', index: 1, value: 150},
-                {period: 'evening', index: 1, value: 100},
-                {period: 'night', index: 1, value: 100}
-            ],
+            /*   data: [
+                   {period: 'morning', index: 1, value: 0},
+                   {period: 'afternoon', index: 1, value: 300},
+                   {period: 'evening', index: 1, value: 150},
+                   {period: 'night', index: 1, value: 0}
+               ],
+               data01: [
+                   {period: 'morning', index: 1, value: 250},
+                   {period: 'afternoon', index: 1, value: 250},
+                   {period: 'evening', index: 1, value: 100},
+                   {period: 'night', index: 1, value: 125}
+               ],
+               data02: [
+                   {period: 'morning', index: 1, value: 100},
+                   {period: 'afternoon', index: 1, value: 150},
+                   {period: 'evening', index: 1, value: 100},
+                   {period: 'night', index: 1, value: 0}
+               ],
+               data03: [
+                   {period: 'morning', index: 1, value: 100},
+                   {period: 'afternoon', index: 1, value: 150},
+                   {period: 'evening', index: 1, value: 100},
+                   {period: 'night', index: 1, value: 100}
+               ],*/
+            data: [],
+            data01: [],
+            data02: [],
+            data03: [],
             teamId: props.teamId
-        }
+        };
     }
 
     parseDomain() {
@@ -52,13 +56,15 @@ export default class TrainingChart extends React.Component {
     };
 
 
-    componentDidMount(): void {
+    componentDidMount() {
         this.getData();
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        if (this.props.teamId !== prevProps.teamId)
+        if (this.props.teamId !== prevProps.teamId) {
+            this.setState({teamId: this.props.teamId});
             this.getData();
+        }
     }
 
     getData() {
@@ -68,30 +74,31 @@ export default class TrainingChart extends React.Component {
         apiLTM.getTeamById(this.state.teamId).then(response => {
 
             this.setState({
+
                 data: [
-                    {period: 'morning', index: 1, value: response.data.practices.sunday[0]},
-                    {period: 'afternoon', index: 1, value: response.data.practices.sunday[1]},
-                    {period: 'evening', index: 1, value: response.data.practices.sunday[2]},
-                    {period: 'night', index: 1, value: response.data.practices.sunday[3]}
+                    {period: 'morning', index: 1, value: response.data.training.sunday[0]},
+                    {period: 'afternoon', index: 1, value: response.data.training.sunday[1]},
+                    {period: 'evening', index: 1, value: response.data.training.sunday[2]},
+                    {period: 'night', index: 1, value: response.data.training.sunday[3]}
                 ],
 
                 data01: [
-                    {period: 'morning', index: 1, value: response.data.practices.wednesday[0]},
-                    {period: 'afternoon', index: 1, value: response.data.practices.wednesday[1]},
-                    {period: 'evening', index: 1, value: response.data.practices.wednesday[2]},
-                    {period: 'night', index: 1, value: response.data.practices.wednesday[3]}
+                    {period: 'morning', index: 1, value: response.data.training.wednesday[0]},
+                    {period: 'afternoon', index: 1, value: response.data.training.wednesday[1]},
+                    {period: 'evening', index: 1, value: response.data.training.wednesday[2]},
+                    {period: 'night', index: 1, value: response.data.training.wednesday[3]}
                 ],
 
                 data02: [
-                    {period: 'morning', index: 1, value: response.data.practices.friday[0]},
-                    {period: 'afternoon', index: 1, value: response.data.practices.friday[1]},
-                    {period: 'evening', index: 1, value: response.data.practices.friday[2]},
-                    {period: 'night', index: 1, value: response.data.practices.friday[3]}
+                    {period: 'morning', index: 1, value: response.data.training.friday[0]},
+                    {period: 'afternoon', index: 1, value: response.data.training.friday[1]},
+                    {period: 'evening', index: 1, value: response.data.training.friday[2]},
+                    {period: 'night', index: 1, value: response.data.training.friday[3]}
                 ], data03: [
-                    {period: 'morning', index: 1, value: response.data.practices.saturday[0]},
-                    {period: 'afternoon', index: 1, value: response.data.practices.saturday[1]},
-                    {period: 'evening', index: 1, value: response.data.practices.saturday[2]},
-                    {period: 'night', index: 1, value: response.data.practices.saturday[3]}
+                    {period: 'morning', index: 1, value: response.data.training.saturday[0]},
+                    {period: 'afternoon', index: 1, value: response.data.training.saturday[1]},
+                    {period: 'evening', index: 1, value: response.data.training.saturday[2]},
+                    {period: 'night', index: 1, value: response.data.training.saturday[3]}
                 ]
             })
 
@@ -144,32 +151,4 @@ export default class TrainingChart extends React.Component {
             </div>
         );
     }
-};
-
-TrainingChart.defaultProps = {
-    data: [
-        {period: 'morning', index: 1, value: 0},
-        {period: 'afternoon', index: 1, value: 300},
-        {period: 'evening', index: 1, value: 150},
-        {period: 'night', index: 1, value: 0}
-    ],
-
-    data01: [
-        {period: 'morning', index: 1, value: 250},
-        {period: 'afternoon', index: 1, value: 250},
-        {period: 'evening', index: 1, value: 100},
-        {period: 'night', index: 1, value: 125}
-    ],
-
-    data02: [
-        {period: 'morning', index: 1, value: 100},
-        {period: 'afternoon', index: 1, value: 150},
-        {period: 'evening', index: 1, value: 100},
-        {period: 'night', index: 1, value: 0}
-    ], data03: [
-        {period: 'morning', index: 1, value: 100},
-        {period: 'afternoon', index: 1, value: 150},
-        {period: 'evening', index: 1, value: 100},
-        {period: 'night', index: 1, value: 100}
-    ]
 };

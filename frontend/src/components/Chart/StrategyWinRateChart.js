@@ -16,14 +16,12 @@ export default class StrategyWinRateChart extends React.Component {
         }
     }
 
-
     componentDidMount() {
+        this.getTeamData();
     }
 
     getTeamData() {
-
         const apiLTM = new ApiLTM();
-
         apiLTM.getTeamById(this.state.teamId).then(response => {
             this.setState({
                 data: [
@@ -52,14 +50,16 @@ export default class StrategyWinRateChart extends React.Component {
                         fullMark: 100,
                     },
                     {
-                        strategy: response.data.strategy[4].name, A: response.data.strategy[4].winRate, fullMark: 100,
+                        strategy: response.data.strategy[4].name,
+                        A: response.data.strategy[4].winRate,
+                        B: 50,
+                        fullMark: 100,
                     }
                 ],
                 teamId: this.props.teamId
             })
         }).catch(onerror => {
         });
-
 
     }
 
@@ -70,7 +70,7 @@ export default class StrategyWinRateChart extends React.Component {
 
     render() {
         return (
-            <RadarChart outerRadius={150} width={500} height={400} data={this.state.data}>
+            <RadarChart outerRadius={150} width={550} height={400} data={this.state.data}>
                 <PolarGrid/>
                 <PolarAngleAxis dataKey="strategy"/>
                 <PolarRadiusAxis angle={30} domain={[0, 100]}/>
@@ -81,23 +81,3 @@ export default class StrategyWinRateChart extends React.Component {
         );
     }
 }
-
-StrategyWinRateChart.defaultProps = {
-    data: [
-        {
-            strategy: 'Split Push', A: 45, B: 50, fullMark: 100,
-        },
-        {
-            strategy: 'Poke', A: 66, B: 50, fullMark: 100,
-        },
-        {
-            strategy: 'Protect the Carry', A: 75, B: 50, fullMark: 100,
-        },
-        {
-            strategy: 'Area of Effect', A: 86, B: 50, fullMark: 100,
-        },
-        {
-            strategy: 'Swap Lane', A: 39, B: 50, fullMark: 100,
-        }
-    ]
-};

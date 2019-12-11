@@ -24,10 +24,6 @@ export default class CoachProfile extends React.Component {
         }
     }
 
-    componentDidMount(): void {
-        this.getData();
-    }
-
     render() {
         return (
             <Grid
@@ -41,7 +37,7 @@ export default class CoachProfile extends React.Component {
                 </Grid>
                 <Grid item xs>
                     <Typography variant="h5" component="h2" gutterBottom>
-                        {this.state.player.coachName}
+                        {this.state.coachName}
                     </Typography>
                 </Grid>
             </Grid>

@@ -144,6 +144,9 @@ export default function TrainingTransferList(props) {
         </Card>
     );
 
+    useEffect(() => {
+        getData();
+    },[props.teamId]);
 
     const getData = () => {
 
@@ -157,8 +160,6 @@ export default function TrainingTransferList(props) {
         }).catch(onerror => {
         });
     };
-
-    getData();
 
     return (
         <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>

@@ -31,63 +31,79 @@ export default class Team extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             teamId: props.teamId,
-            teamName: props.teamName,
-            players: props.players
+            playersId: [],
+            players: []
         }
+        /*       players: [{
+                   name: "",
+                   _id: "",
+                   role: "",
+                   masteredChampions: [],
+                   toTrainChampions: [],
+                   dislikedChampions: []
+               }]*/
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.teamId !== this.props.teamId) {
+            this.setState({teamId: this.props.teamId});
             this.getData();
         }
-    }
-
-    getData() {
-        const apiLTM = new ApiLTM();
-
-        let playersId = [];
-
-        apiLTM.getPlayersForTeam(this.state.teamId).then(response => {
-            playersId = response.data.players
-        }).catch(onerror => {
-        });
-
-        let players = [];
-
-        playersId.map(player => {
-
-            apiLTM.getPlayerById(player).then(
-                response => {
-                    players.push(
-                        {
-                            playerName: response.data.playerName,
-                            playerId: response.data.playerId,
-                            role: response.data.role,
-                            mastered: response.data.mastered,
-                            toTrain: response.data.toTrain,
-                            disliked: response.data.disliked
-                        }
-                    )
-                }
-            ).catch(onerror => {
-
-            });
-        });
-
-        this.setState({
-            players: players
-        })
-
     }
 
     componentDidMount() {
         this.getData();
     }
 
+    getData() {
+        const apiLTM = new ApiLTM();
+        const apiLTM2 = new ApiLTM();
+
+        apiLTM.getPlayersForTeam(this.state.teamId).then(response => {
+
+            this.setState({
+                playersId: response.data
+            });
+
+            let players = [];
+            this.state.playersId.map(player => {
+                apiLTM2.getPlayerById(player).then(response => {
+
+                        players.push({
+                            name: response.data.name,
+                            _id: response.data._id,
+                            role: response.data.role,
+                            masteredChampions: response.data.masteredChampions,
+                            toTrainChampions: response.data.toTrainChampions,
+                            dislikedChampions: response.data.dislikedChampions
+                        });
+                    }
+                ).then(() => {
+                    console.log(players);
+                    this.setState({players: players});
+                }).catch(onerror => {
+                });
+
+            });
+
+
+        }).then()
+            .catch(onerror => {
+            });
+
+
+        ///    this.state.playersId.map(player => {
+
+        /// console.log(player);
+
+
+        // });
+    }
+
     render() {
+
         return (
             <div style={{
                 width: '100%'
@@ -111,23 +127,23 @@ export default class Team extends React.Component {
                         </TableHead>
                         <TableBody>
                             {this.state.players.map(row => (
-                                <StyledTableRow key={row.playerName}>
+                                <StyledTableRow key={row.name}>
                                     <TableCell component="th" scope="row">
-                                        {row.playerName}
+                                        {row.name}
                                     </TableCell>
                                     <TableCell align="right">{row.role}</TableCell>
-                                    <TableCell align="right">{row.mastered.map((champion, index) => {
-                                        if (row.mastered.length > 1 && index !== row.mastered.length - 1)
+                                    <TableCell align="right">{row.masteredChampions.map((champion, index) => {
+                                        if (row.masteredChampions.length > 1 && index !== row.masteredChampions.length - 1)
                                             return (champion + ", ");
                                         else return (champion);
                                     })}</TableCell>
-                                    <TableCell align="right">{row.toTrain.map((champion, index) => {
-                                        if (row.toTrain.length > 1 && index !== row.toTrain.length - 1)
+                                    <TableCell align="right">{row.toTrainChampions.map((champion, index) => {
+                                        if (row.toTrainChampions.length > 1 && index !== row.toTrainChampions.length - 1)
                                             return (champion + ", ");
                                         else return (champion);
                                     })}</TableCell>
-                                    <TableCell align="right">{row.disliked.map((champion, index) => {
-                                        if (row.disliked.length > 1 && index !== row.disliked.length - 1)
+                                    <TableCell align="right">{row.dislikedChampions.map((champion, index) => {
+                                        if (row.dislikedChampions.length > 1 && index !== row.dislikedChampions.length - 1)
                                             return (champion + ", ");
                                         else return (champion);
                                     })}</TableCell>
@@ -140,50 +156,3 @@ export default class Team extends React.Component {
         );
     }
 }
-
-Team.defaultProps = {
-
-    teamName: "NGA B",
-    players: [
-        {
-            playerName: "Shotetsu",
-            playerId: "id",
-            role: "top",
-            mastered: ["Yasuo", "Mordekaiser"],
-            toTrain: ["Fiora", "Camille"],
-            disliked: ["Sion"]
-        },
-        {
-            playerName: "Feengh",
-            playerId: "id",
-            role: "jungle",
-            mastered: ["Shyvana", "Xin Zhao", "Graggas", "Lee Sin"],
-            toTrain: ["Nunu", "Kha'Zix"],
-            disliked: ["Ivern"]
-        },
-        {
-            playerName: "Onyx Sly",
-            playerId: "id",
-            role: "mid",
-            mastered: ["Qiyana", "Ryze", "Zed"],
-            toTrain: ["Cassiopeia"],
-            disliked: ["Twisted Fate"]
-        },
-        {
-            playerName: "Kazenn",
-            playerId: "id",
-            role: "adc",
-            mastered: ["Lucian", "Xayah"],
-            toTrain: ["Tristana", "Ezreal"],
-            disliked: ["Miss Fortune"]
-        },
-        {
-            playerName: "SmileCookie",
-            playerId: "id",
-            role: "support",
-            mastered: ["Zyra", "Velkoz", "Nautilus"],
-            toTrain: ["Leona"],
-            disliked: ["Yuumi"]
-        }
-    ]
-};

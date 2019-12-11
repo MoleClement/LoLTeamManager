@@ -3,8 +3,8 @@ let axios = require('axios');
 const API_URL = "http://localhost:3000/";
 const API_KEY_PLAYER = "player";
 const API_KEY_COACH = "coach";
-const API_KEY_MATCH = "match";
 const API_KEY_TEAM = "team";
+const API_KEY_MATCH = "match";
 
 class ApiLTM {
     constructor() {
@@ -14,49 +14,49 @@ class ApiLTM {
 
     ///Return profile details
     getPlayerProfile(playerId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /*  return axios
+              .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
     getPlayerRank(playerId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /* return axios
+             .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
     getPlayerRankTFT(playerId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /*   return axios
+               .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
     getPlayerRankFlex(playerId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /*return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
     getPlayerWinRatio(playerId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /*return axios
+            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
     getPlayerStatisticChampions(playerId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /* return axios
+             .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
     getPlayerWinRate(playerId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /*   return axios
+               .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
 
     getMatchList(playerId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /*      return axios
+                  .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
     getMatchResult(matchId) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        /*      return axios
+                  .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);*/
     }
 
 
@@ -64,116 +64,128 @@ class ApiLTM {
 
     /// !!!!!! GET !!!!!!!
 
-    // Return all coaches
     getCoaches() {
         return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/`);
+            .get(`${API_URL}${API_KEY_COACH}es`);
     }
 
     // Return coach by ID
     getCoachById(coachId) {
         return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+            .get(`${API_URL}${API_KEY_COACH}/byId`, {coachId: coachId});
     }
 
     // Return coach by name
     getCoachByName(coachName) {
         return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+            .get(`${API_URL}${API_KEY_COACH}/byName`, {params: {name: coachName}});
     }
 
     // Return players for team
     getPlayersForTeam(teamId) {
         return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+            .get(`${API_URL}${API_KEY_TEAM}/getPlayersForTeam`, {params: {teamId: teamId}});
     }
 
     // Return player by ID
     getPlayerById(playerId) {
         return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+            .get(`${API_URL}${API_KEY_PLAYER}`, {params: {id: playerId}});
     }
 
-    // Return player by name
-    getPlayerByName(playerName) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
-    }
+    /*
+        // Return player by name
+        getPlayerByName(playerName) {
+            return axios
+                .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        }
+    */
+
 
     // Return teams
     getTeamsForCoach(coachId) {
         return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+            .get(`${API_URL}${API_KEY_COACH}/getTeamsForCoach`, {params: {coachId: coachId}});
     }
 
     // Return team by ID
     getTeamById(teamId) {
         return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+            .get(`${API_URL}${API_KEY_TEAM}/getTeamById`, {params: {teamId: teamId}});
     }
 
-    // Return team by name
-    getTeamByName(teamName) {
-        return axios
-            .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
-    }
+    /*
+        // Return team by name
+        getTeamByName(teamName) {
+            return axios
+                .get(`${API_URL}${API_KEY_MOVIES}/${movieID}`);
+        }*/
 
     /// !!!!!! CREATE !!!!!!!
 
     /// Create a team
+
+    /// Create a team
     createTeam(teamName) {
         return axios
-            .post(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+            .post(`${API_URL}${API_KEY_TEAM}/createTeam`, {teamName: teamName});
     }
 
-    /// Create coach
-    createCoach(coachName) {
-        return axios
-            .post(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
-    }
+    /*
+        /// Create coach
+        createCoach(coachName) {
+            return axios
+                .post(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+        }
 
-    /// Create player
-    createPlayer(coachName) {
-        return axios
-            .post(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
-    }
+        /// Create player
+        createPlayer(coachName) {
+            return axios
+                .post(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+        }
+    */
+
 
     /// !!!!!! UPDATE !!!!!!!
 
     /// Add a team to a coach
     addTeamToCoach(coachId, teamId) {
         return axios
-            .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+            .put(`${API_URL}${API_KEY_COACH}/addTeamToCoach`, {coachId: coachId, teamId: teamId});
     }
 
-    /// Add a player to a team
-    addPlayerToTeam(playerId, teamId) {
-        return axios
-            .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
-    }
+    /*
+        /// Add a player to a team
+        addPlayerToTeam(playerId, teamId) {
+            return axios
+                .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+        }
 
-    /// updatePlayerChampions
-    updatePlayerChampions(playerId, champions) {
-        return axios
-            .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
-    }
+        /// updatePlayerChampions
+        updatePlayerChampions(playerId, champions) {
+            return axios
+                .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+        }
+    */
 
-    /// updatePlayerRole
-    updatePlayerRole(playerId, role) {
-        return axios
-            .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
-    }
+    /*
+        /// updatePlayerRole
+        updatePlayerRole(playerId, role) {
+            return axios
+                .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+        }
 
-    /// Update player name
-    updatePlayerName(playerId, playerName) {
-        return axios
-            .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
-    }
+        /// Update player name
+        updatePlayerName(playerId, playerName) {
+            return axios
+                .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+        }
+    */
 
     /// Update team practices
     updateTeamPractices(teamId, practices) {
         return axios
-            .put(`${API_URL}${API_KEY_MOVIES}/`, {movieTitle: movieTitle});
+            .put(`${API_URL}${API_KEY_TEAM}/updateTeamPractices`, {teamId: teamId, practices: practices});
     }
 
     /// !!!!!! DELETE !!!!!!!
@@ -205,18 +217,17 @@ class ApiLTM {
         }
     */
 
-    /// Delete teams for a coach from the database
-    deleteTeamFromCoach(coachId) {
+    /*    deleteTeamFromCoach(coachId) {
 
-        return axios
-            .delete(`${API_URL}${API_KEY_PLAYER}/`);
-    }
+            return axios
+                .delete(`${API_URL}${API_KEY_PLAYER}/deleteTeamFromCoach`,{coachId: coachId});
+        }
 
-    /// Delete specified team for a coach from the database
-    deleteTeamByIdFromCoach(coachId, playerId) {
-        return axios
-            .delete(`${API_URL}${API_KEY_COACH}/${id}`);
-    }
+        /// Delete specified team for a coach from the database
+        deleteTeamByIdFromCoach(coachId, playerId) {
+            return axios
+                .delete(`${API_URL}${API_KEY_COACH}/deleteTeamByIdFromCoach`,{coachId: coachId});
+        }*/
 
     /// !!!!!!! PLAYERS !!!!!!!
     /*
@@ -237,12 +248,12 @@ class ApiLTM {
         }
     */
 
-    /// Delete specified player for a team from the database
-    deletePlayerByIdFromTeam(teamId, playerId) {
-        return axios
-            .delete(`${API_URL}${API_KEY_COACH}/${id}`);
-    }
-
+    /*  /// Delete specified player for a team from the database
+      deletePlayerByIdFromTeam(teamId, playerId) {
+          return axios
+              .delete(`${API_URL}${API_KEY_COACH}/deletePlayerByIdFromTeam`,{coachId: coachId});
+      }
+  */
     /// !!!!!!! CHAMPIONS !!!!!!!
     /*
 
@@ -262,12 +273,13 @@ class ApiLTM {
         }
     */
 
-    /// Delete role from player by id
-    deletePlayerRoleById(playerId) {
+    /*
+       /// Delete role from player by id
+       deletePlayerRoleById(playerId) {
 
-        return axios
-            .delete(`${API_URL}${API_KEY_PLAYER}/`);
-    }
+           return axios
+               .delete(`${API_URL}${API_KEY_PLAYER}/`);
+       }*/
 
     /// !!!!!!! CHAMPIONS !!!!!!!
     /*
@@ -279,29 +291,31 @@ class ApiLTM {
         }
     */
 
-    /// Delete all champions for a player from the database
-    deleteChampionsFromPlayer(playerId) {
-        return axios
-            .delete(`${API_URL}${API_KEY_COACH}/${id}`);
-    }
+    /*
+        /// Delete all champions for a player from the database
+        deleteChampionsFromPlayer(playerId) {
+            return axios
+                .delete(`${API_URL}${API_KEY_COACH}/${id}`);
+        }
 
-    /// Delete all mastered champions for a player from the database
-    deleteMasteredChampionsFromPlayer(playerId) {
-        return axios
-            .delete(`${API_URL}${API_KEY_COACH}/${id}`);
-    }
+        /// Delete all mastered champions for a player from the database
+        deleteMasteredChampionsFromPlayer(playerId) {
+            return axios
+                .delete(`${API_URL}${API_KEY_COACH}/${id}`);
+        }
 
-    /// Delete specified mastered champion for a player from the database
-    deleteMasteredChampionsByIdFromPlayer(playerId, champion) {
-        return axios
-            .delete(`${API_URL}${API_KEY_COACH}/${id}`);
-    }
+        /// Delete specified mastered champion for a player from the database
+        deleteMasteredChampionsByIdFromPlayer(playerId, champion) {
+            return axios
+                .delete(`${API_URL}${API_KEY_COACH}/${id}`);
+        }
 
-    /// Delete all disliked champions for a player from the database
-    deleteDislikedChampionsFromPlayer(playerId) {
-        return axios
-            .delete(`${API_URL}${API_KEY_COACH}/${id}`);
-    }
+        /// Delete all disliked champions for a player from the database
+        deleteDislikedChampionsFromPlayer(playerId) {
+            return axios
+                .delete(`${API_URL}${API_KEY_COACH}/${id}`);
+        }
+    */
 
     /*
         /// Delete specified disliked champion for a player from the database
