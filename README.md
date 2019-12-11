@@ -8,10 +8,11 @@ Môle Clément / Fong Sarah / Yvinec Ruben<br/>
 Loom: In progress<br/>
 Online: In progress<br/>
 
-###Working for now : <br/>
+##Working for now : <br/>
 coach-dashboard<br/>
-###Front : player-dashboard<br/>
-WIP: Back : player-dashboard api data formating
+Front : player-dashboard<br/>
+##WIP: <br/>
+Back : player-dashboard api data formating
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 Extremly WIP: Creation of a web application to enable a LoL esports team coach to monitor their progress
