@@ -1,6 +1,17 @@
 # LoL Team Manager
 
-ECE PARIS: Môle Clément / Fong Sarah / Yvinec Ruben
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+## ECE PARIS: 
+Môle Clément / Fong Sarah / Yvinec Ruben
+
+Loom: In progress 
+Online: In progress
+
+Working for now : coach-dashboard
+Front : player-dashboard 
+WIP: Back : player-dashboard api data formating
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 Extremly WIP: Creation of a web application to enable a LoL esports team coach to monitor their progress
 
