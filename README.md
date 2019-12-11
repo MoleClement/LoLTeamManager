@@ -1,5 +1,7 @@
 # LoL Team Manager
 
+ECE PARIS: Môle Clément / Fong Sarah / Yvinec Ruben
+
 Extremly WIP: Creation of a web application to enable a LoL esports team coach to monitor their progress
 
 ## Introduction
