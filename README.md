@@ -5,8 +5,6 @@
 ## ECE PARIS: 
 Môle Clément / Fong Sarah / Yvinec Ruben
 
-Loom: In progress  
-Online: In progress  
 
 #### Implemented:   
 
@@ -16,7 +14,8 @@ Front : player-dashboard
 #### WIP:  
 
 Back : player-dashboard api data formating
-
+Loom  
+Host online   
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- ---- -- -- -- -- -- -- -- -- -- --
 
 Extremly WIP: Creation of a web application to enable a LoL esports team coach to monitor their progress
