@@ -8,8 +8,9 @@ Môle Clément / Fong Sarah / Yvinec Ruben<br/>
 Loom: In progress<br/>
 Online: In progress<br/>
 
-Working for now : coach-dashboard<br/>
-Front : player-dashboard<br/>
+###Working for now : <br/>
+coach-dashboard<br/>
+###Front : player-dashboard<br/>
 WIP: Back : player-dashboard api data formating
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
