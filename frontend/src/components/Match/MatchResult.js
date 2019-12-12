@@ -18,32 +18,32 @@ export default class MatchResult extends React.Component {
                 icon: "",
                 spell1: "",
                 spell2: "",
-                score: "",
-                kda: ""
+                score: "12/2/10",
+                kda: "11.0"
             },
             result: {
-                result: "",
-                creepScore: "",
-                gold: "",
+                result: "Victory",
+                creepScore: "230",
+                gold: "9875g",
             },
             game: {
-                queue: "",
-                gameTime: "",
-                date: ""
+                queue: "Single",
+                gameTime: "24min 25sec",
+                date: "01.03"
             },
             runes: [],
             equipments: []
         };
     }
 
-    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        if (prevProps.matchId !== this.props.matchId) {
-            this.getData();
-        }
+    componentDidUpdate(prevProps, prevState, snapshot): void {
+        /* if (prevProps.matchId !== this.props.matchId) {
+             this.getData();
+         }*/
     }
 
     componentDidMount(): void {
-        this.getData();
+        //  this.getData();
     }
 
     getData() {
@@ -157,6 +157,7 @@ export default class MatchResult extends React.Component {
                       container
                       direction="row"
                       alignItems="center"
+                      justify="center"
                 >
                     <Grid item xs>
                         <IconShape big icon={this.state.champion.icon}/>
@@ -183,6 +184,7 @@ export default class MatchResult extends React.Component {
                       container
                       direction="row"
                       alignItems="center"
+                      justify="center"
                 >
                     <Grid item xs={1}>
                         <IconDisplay icons={spellsData} spacing={1}/>
@@ -203,3 +205,24 @@ export default class MatchResult extends React.Component {
         );
     }
 }
+MatchResult.defaultProps = {
+    champion: {
+        icon: "",
+        spell1: "",
+        spell2: "",
+        score: "12/2/10",
+        kda: "11.0"
+    },
+    result: {
+        result: "Victory",
+        creepScore: "230",
+        gold: "9875g",
+    },
+    game: {
+        queue: "Single",
+        gameTime: "24min 25sec",
+        date: "01.03"
+    },
+    runes: [],
+    equipments: []
+};

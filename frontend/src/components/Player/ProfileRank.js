@@ -35,88 +35,88 @@ export default class ProfileRank extends React.Component {
     getData() {
         const apiLTM = new ApiLTM();
 
-        switch (this.state.queue) {
-            case "single" :
-                apiLTM.getPlayerRank(this.state.playerId).then(response => {
+        /* switch (this.state.queue) {
+             case "single" :
+                 apiLTM.getPlayerRank(this.state.playerId).then(response => {
 
-                    this.setState(
-                        {
-                            playerId: response.data.playerId,
-                            rank: {
-                                rank: response.data.rank,
-                                rankIcon: response.data.rankIcon,
-                                rankLP: response.data.rankLP,
-                                rankWinRate: response.data.rankWinRate,
-                                rankQueue: response.data.rankQueue
-                            },
-                            result: {
-                                winNumber: response.data.winNumber,
-                                loseNumber: response.data.loseNumber
-                            },
-                            hasRank: response.data.hasRank
-                        }
-                    );
-                }).catch(onerror => {
-                });
-                break;
-            case "tft" :
-                apiLTM.getPlayerRankTFT(this.state.playerId).then(response => {
+                     this.setState(
+                         {
+                             playerId: response.data.playerId,
+                             rank: {
+                                 rank: response.data.rank,
+                                 rankIcon: response.data.rankIcon,
+                                 rankLP: response.data.rankLP,
+                                 rankWinRate: response.data.rankWinRate,
+                                 rankQueue: response.data.rankQueue
+                             },
+                             result: {
+                                 winNumber: response.data.winNumber,
+                                 loseNumber: response.data.loseNumber
+                             },
+                             hasRank: response.data.hasRank
+                         }
+                     );
+                 }).catch(onerror => {
+                 });
+                 break;
+             case "tft" :
+                 apiLTM.getPlayerRankTFT(this.state.playerId).then(response => {
 
-                    this.setState(
-                        {
-                            playerId: response.data.playerId,
-                            rank: {
-                                rank: response.data.rank,
-                                rankIcon: response.data.rankIcon,
-                                rankLP: response.data.rankLP,
-                                rankWinRate: response.data.rankWinRate,
-                                rankQueue: response.data.rankQueue
-                            },
-                            result: {
-                                winNumber: response.data.winNumber,
-                                loseNumber: response.data.loseNumber
-                            },
-                            hasRank: response.data.hasRank
-                        }
-                    );
-                }).catch(onerror => {
-                });
-                break;
-            case "flex" :
-                apiLTM.getPlayerRankFlex(this.state.playerId).then(response => {
+                     this.setState(
+                         {
+                             playerId: response.data.playerId,
+                             rank: {
+                                 rank: response.data.rank,
+                                 rankIcon: response.data.rankIcon,
+                                 rankLP: response.data.rankLP,
+                                 rankWinRate: response.data.rankWinRate,
+                                 rankQueue: response.data.rankQueue
+                             },
+                             result: {
+                                 winNumber: response.data.winNumber,
+                                 loseNumber: response.data.loseNumber
+                             },
+                             hasRank: response.data.hasRank
+                         }
+                     );
+                 }).catch(onerror => {
+                 });
+                 break;
+             case "flex" :
+                 apiLTM.getPlayerRankFlex(this.state.playerId).then(response => {
 
-                    this.setState(
-                        {
-                            playerId: response.data.playerId,
-                            rank: {
-                                rank: response.data.rank,
-                                rankIcon: response.data.rankIcon,
-                                rankLP: response.data.rankLP,
-                                rankWinRate: response.data.rankWinRate,
-                                rankQueue: response.data.rankQueue
-                            },
-                            result: {
-                                winNumber: response.data.winNumber,
-                                loseNumber: response.data.loseNumber
-                            },
-                            hasRank: response.data.hasRank
-                        }
-                    );
-                }).catch(onerror => {
-                });
-                break;
-        }
+                     this.setState(
+                         {
+                             playerId: response.data.playerId,
+                             rank: {
+                                 rank: response.data.rank,
+                                 rankIcon: response.data.rankIcon,
+                                 rankLP: response.data.rankLP,
+                                 rankWinRate: response.data.rankWinRate,
+                                 rankQueue: response.data.rankQueue
+                             },
+                             result: {
+                                 winNumber: response.data.winNumber,
+                                 loseNumber: response.data.loseNumber
+                             },
+                             hasRank: response.data.hasRank
+                         }
+                     );
+                 }).catch(onerror => {
+                 });
+                 break;
+         }*/
 
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        if (prevProps.playerId !== this.props.playerId) {
-            this.getData();
-        }
+        /*   if (prevProps.playerId !== this.props.playerId) {
+               this.getData();
+           }*/
     }
 
     componentDidMount(): void {
-        this.getData();
+       //this.getData();
     }
 
     render() {
@@ -139,7 +139,7 @@ export default class ProfileRank extends React.Component {
                         alignItems="flex-start"
                     >
                         <Typography color="textPrimary" variant={"body2"} gutterBottom>
-                            {this.state.rank.rankQueue}
+                            {this.props.queue}
                         </Typography>
                         <Typography variant="h5" component="h2" gutterBottom>
                             {this.state.rank.rank}

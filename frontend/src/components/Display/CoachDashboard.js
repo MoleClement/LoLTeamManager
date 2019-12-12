@@ -32,6 +32,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import CreateTeamForm from "../Inputs/CreateTeamForm";
 import ApiLTM from "../../Apis/ApiLTM";
 import CoachProfile from "../Player/CoachProfile";
+import ContentLoader from "react-content-loader";
 
 export default class PlayerDashboard extends React.Component {
 
@@ -43,7 +44,9 @@ export default class PlayerDashboard extends React.Component {
             coachId: "5deed64f914e0f3154154d7e",
             selectedTeam: 0,
             teams: [],
-            teamsName: []
+            teamsName: [],
+            isLoading: false,
+            error: null
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -56,13 +59,12 @@ export default class PlayerDashboard extends React.Component {
             this.setState({
                 selectedTeam: event.target.value,
             });
-        console.log(this.state);
         /*  this.setState({
               selectedTeam: event.target.value,
           });*/
     }
 
-    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+    componentDidUpdate(prevProps , prevState, snapshot ): void {
         if (prevState.selectedTeam !== this.state.selectedTeam || prevState.coachId !== this.state.coachId)
             this.getData();
     }
@@ -89,27 +91,55 @@ export default class PlayerDashboard extends React.Component {
     }
 
     getData() {
+
+        this.setState({isLoading: true});
+
         const apiLTM = new ApiLTM();
         const apiLTM2 = new ApiLTM();
 
         apiLTM.getTeamsForCoach(this.state.coachId).then(response => {
+
             this.setState({
                 teams: response.data
             });
             let teamDetails = [];
-            this.state.teams.map(teamId => {
+            response.data.map(teamId => {
                 apiLTM2.getTeamById(teamId).then(response2 => {
                     teamDetails.push(response2.data.name);
                 }).then(() => {
-                    this.setState({teamsName: teamDetails})
+                    this.setState({teamsName: teamDetails, isLoading: false});
                 })
             });
-
         }).catch(onerror => {
+            this.setState({error: onerror, isLoading: false});
         });
     }
 
     render() {
+        const {selectedTeam, isLoading, teams, coachId, teamsName, coachName} = this.state;
+
+        let StrategyWinRateChartC;
+        let TrainingTransferListC;
+        let TrainingChartC;
+        let TeamC;
+
+        if (selectedTeam < 1) {
+
+            StrategyWinRateChartC = TrainingTransferListC = TrainingChartC = TeamC = <div/>
+
+        } else {
+
+            StrategyWinRateChartC = <StrategyWinRateChart
+                teamId={teams[(selectedTeam - 1)]}/>;
+
+            TrainingChartC = <TrainingChart teamId={teams[(selectedTeam - 1)]}/>;
+
+            TrainingTransferListC = <TrainingTransferList
+                teamId={teams[(selectedTeam - 1)]}/>;
+
+            TeamC = <Team teamId={teams[(selectedTeam - 1)]}/>;
+
+        }
 
         const layout = [
             {i: '0', x: 0, y: 0, w: 11, h: 2, static: true},
@@ -120,36 +150,11 @@ export default class PlayerDashboard extends React.Component {
             {i: '5', x: 3, y: 12, w: 8, h: 12, static: true},
         ];
 
-        let StrategyWinRateChartC;
-        let TrainingTransferListC;
-        let TrainingChartC;
-        let TeamC;
-
-
-        if (this.state.selectedTeam < 1) {
-
-            StrategyWinRateChartC = TrainingTransferListC = TrainingChartC = TeamC = <div/>
-
-        } else {
-            console.log("value: 'state' " + (this.state.selectedTeam - 1));
-            console.log("Team ID: 'state' " + this.state.teams[(this.state.selectedTeam - 1)]);
-
-            StrategyWinRateChartC = <StrategyWinRateChart
-                teamId={this.state.teams[(this.state.selectedTeam - 1)]}/>;
-
-            TrainingChartC = <TrainingChart teamId={this.state.teams[(this.state.selectedTeam - 1)]}/>;
-
-            TrainingTransferListC = <TrainingTransferList
-                teamId={this.state.teams[(this.state.selectedTeam - 1)]}/>;
-
-            TeamC = <Team teamId={this.state.teams[(this.state.selectedTeam - 1)]}/>;
-
-        }
         return (
             <GridLayout className="layout" layout={layout} cols={12} rowHeight={36} width={1900}>
                 <div key={'0'}>
 
-                    <CreateTeamForm coachId={this.state.coachId} onCreateTeam={this.onCreateTeam}/>
+                    <CreateTeamForm coachId={coachId} onCreateTeam={this.onCreateTeam}/>
 
                     <FormControl variant="outlined" style={{
                         margin: -40,
@@ -160,14 +165,14 @@ export default class PlayerDashboard extends React.Component {
                         <Select
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
-                            value={this.selectedTeam}
+                            value={selectedTeam}
                             onChange={this.handleChange}
                             labelWidth={90}
                         >
                             <MenuItem value={0}>
                                 None
                             </MenuItem>
-                            {this.state.teamsName.map((team, index) => {
+                            {teamsName.map((team, index) => {
                                 return <MenuItem value={index + 1}><em>{team}</em></MenuItem>
                             })}
                         </Select>
@@ -178,39 +183,21 @@ export default class PlayerDashboard extends React.Component {
                 <div key={'1'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
                         <CardContent>
-                            <CoachProfile coachName={this.state.coachName} coachId={this.state.coachId}/>
+                            <CoachProfile coachName={coachName} coachId={coachId}/>
                         </CardContent>
                     </Card>
                 </div>
 
                 <div key={'2'}>
-                    <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
-                        <CardContent>
-                            {StrategyWinRateChartC}
-                        </CardContent>
-                    </Card>
+                    {StrategyWinRateChartC}
                 </div>
                 <div key={'3'}>
-                    <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
-                        <CardContent>
-                            {TrainingTransferListC}
-                        </CardContent>
-                    </Card>
+                    {TrainingTransferListC}
                 </div>
                 <div key={'4'}>
-                    <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
-                        <CardContent>
-                            {TrainingChartC}
-                        </CardContent>
-                    </Card>
+                    {TrainingChartC}
                 </div>
-                <div key={'5'}>
-                    <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
-                        <CardContent>
-                            {TeamC}
-                        </CardContent>
-                    </Card>
-                </div>
+                <div key={'5'}>{TeamC}</div>
             </GridLayout>
         );
     }

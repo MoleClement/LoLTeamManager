@@ -11,6 +11,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import ApiLTM from "../../Apis/ApiLTM";
+import ContentLoader from "react-content-loader";
+import CardContent from "@material-ui/core/CardContent";
+import GridLayout from "react-grid-layout";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -50,9 +53,27 @@ export default function TrainingTransferList(props) {
     const [checked, setChecked] = React.useState([]);
     const [left, setLeft] = React.useState([]);
     const [right, setRight] = React.useState([]);
+    const [isLoading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState(null);
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
+
+    const listLoader = <ContentLoader
+        height={600}
+        width={600}
+        speed={1}
+        primaryColor="#d9d9d9"
+        secondaryColor="#ecebeb"
+    >
+        <rect x="100" y="100" rx="5" ry="5" width="55" height="220"/>
+        <rect x="160" y="220" rx="5" ry="5" width="55" height="100"/>
+        <rect x="220" y="160" rx="5" ry="5" width="55" height="160"/>
+        <rect x="280" y="260" rx="5" ry="5" width="55" height="60"/>
+        <rect x="460" y="140" rx="5" ry="5" width="55" height="180"/>
+        <rect x="340" y="40" rx="5" ry="5" width="55" height="280"/>
+        <rect x="400" y="200" rx="5" ry="5" width="55" height="120"/>
+    </ContentLoader>;
 
     const updateData = () => {
         const apiLTM = new ApiLTM();
@@ -104,7 +125,6 @@ export default function TrainingTransferList(props) {
         setChecked(not(checked, rightChecked));
     };
 
-
     const customList = (title, items) => (
         <Card>
             <CardHeader
@@ -151,14 +171,16 @@ export default function TrainingTransferList(props) {
 
     const getData = () => {
 
+        setLoading(true);
         const apiLTM = new ApiLTM();
-
         apiLTM.getTeamById(props.teamId).then(response => {
 
             setRight(response.data.practices.right);
             setLeft(response.data.practices.left);
 
-        }).catch(onerror => {
+        }).then(setLoading(false)).catch(onerror => {
+            setLoading(false);
+            setError(error)
         });
     };
 
@@ -166,34 +188,43 @@ export default function TrainingTransferList(props) {
         updateData();
     }, [right, left]);
 
-    return (
-        <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
-            <Grid item>{customList('To Train', left)}</Grid>
-            <Grid item>
-                <Grid container direction="column" alignItems="center">
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
-                        aria-label="move selected right"
-                    >
-                        &gt;
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        size="small"
-                        className={classes.button}
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
-                        aria-label="move selected left"
-                    >
-                        &lt;
-                    </Button>
-                </Grid>
-            </Grid>
-            <Grid item>{customList('Mastered', right)}</Grid>
-        </Grid>
-    );
+
+    if (isLoading)
+        return listLoader;
+
+    else
+        return (
+            <Card style={{height: '100%', display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <CardContent>
+                    <Grid container spacing={2} justify="center" alignItems="center" className={classes.root}>
+                        <Grid item>{customList('To Train', left)}</Grid>
+                        <Grid item>
+                            <Grid container direction="column" alignItems="center">
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    className={classes.button}
+                                    onClick={handleCheckedRight}
+                                    disabled={leftChecked.length === 0}
+                                    aria-label="move selected right"
+                                >
+                                    &gt;
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    className={classes.button}
+                                    onClick={handleCheckedLeft}
+                                    disabled={rightChecked.length === 0}
+                                    aria-label="move selected left"
+                                >
+                                    &lt;
+                                </Button>
+                            </Grid>
+                        </Grid>
+                        <Grid item>{customList('Mastered', right)}</Grid>
+                    </Grid>
+                </CardContent>
+            </Card>
+        );
 }

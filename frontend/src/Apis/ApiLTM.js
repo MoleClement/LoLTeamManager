@@ -93,6 +93,11 @@ class ApiLTM {
             .get(`${API_URL}${API_KEY_PLAYER}`, {params: {id: playerId}});
     }
 
+    getPlayerByName(playerName) {
+        return axios
+            .get(`${API_URL}${API_KEY_PLAYER}/getPlayerByName`, {params: {name: playerName}});
+    }
+
     /*
         // Return player by name
         getPlayerByName(playerName) {
@@ -133,7 +138,13 @@ class ApiLTM {
 
     createPlayer(newPlayer) {
         return axios
-            .post(`${API_URL}${API_KEY_PLAYER}`, {player: newPlayer});
+            .post(`${API_URL}${API_KEY_PLAYER}`, {
+                name: newPlayer.name,
+                role: newPlayer.role,
+                dislikedChampions: newPlayer.dislikedChampions,
+                toTrainChampions: newPlayer.toTrainChampions,
+                masteredChampions: newPlayer.masteredChampions
+            });
     }
 
     /*
@@ -157,12 +168,12 @@ class ApiLTM {
 
     addPlayerToTeam(playerId, teamId) {
         return axios
-            .put(`${API_URL}${API_KEY_TEAM}/addPlayerToTeam`, {playerId: playerId, teamId:teamId});
+            .put(`${API_URL}${API_KEY_TEAM}/addPlayerToTeam`, {playerId: playerId, teamId: teamId});
     }
 
     deletePlayerFromTeam(playerId, teamId) {
         return axios
-            .put(`${API_URL}${API_KEY_TEAM}/deletePlayerFromTeam`, {playerId: playerId, teamId:teamId});
+            .put(`${API_URL}${API_KEY_TEAM}/deletePlayerFromTeam`, {playerId: playerId, teamId: teamId});
     }
 
     addTeamToCoach(coachId, teamId) {
@@ -170,7 +181,7 @@ class ApiLTM {
             .put(`${API_URL}${API_KEY_COACH}/addTeamToCoach`, {coachId: coachId, teamId: teamId});
     }
 
-    updatePlayer(player){
+    updatePlayer(player) {
         return axios
             .put(`${API_URL}${API_KEY_PLAYER}`, {player: player});
     }
@@ -260,10 +271,11 @@ class ApiLTM {
                 .delete(`${API_URL}${API_KEY_PLAYER}/`);
         }
     */
-    deletePlayer(playerId){
+    deletePlayer(playerId) {
         return axios
             .delete(`${API_URL}${API_KEY_PLAYER}`, {playerId: playerId});
     }
+
     /*
         /// Delete all the player for a team from the database
         deletePlayersFromTeam(teamId) {
@@ -411,7 +423,6 @@ class ApiLTM {
                 .delete(`${API_URL}${API_KEY_COACH}/${id}`);
         }
     */
-
 
 }
 

@@ -26,59 +26,67 @@ export default class WinRatioChart extends React.Component {
     getData() {
         const apiLTM = new ApiLTM();
 
-        apiLTM.getPlayerWinRatio(this.state.playerId).then(response => {
-            this.setState(
-                {
-                    playerId: response.data.playerId,
-                    days: [{
-                        day: response.data.days[0].day,
-                        win: response.data.days[0].win,
-                        lose: response.data.days[0].lose
-                    }, {
-                        day: response.data.days[1].day,
-                        win: response.data.days[1].win,
-                        lose: response.data.days[1].lose
-                    }, {
-                        day: response.data.days[2].day,
-                        win: response.data.days[2].win,
-                        lose: response.data.days[2].lose
-                    }, {
-                        day: response.data.days[3].day,
-                        win: response.data.days[3].win,
-                        lose: response.data.days[3].lose
-                    }, {
-                        day: response.data.days[4].day,
-                        win: response.data.days[4].win,
-                        lose: response.data.days[4].lose
-                    }, {
-                        day: response.data.days[5].day,
-                        win: response.data.days[5].win,
-                        lose: response.data.days[5].lose
-                    }]
-                }
-            );
-        }).catch(onerror => {
-        });
+        /* apiLTM.getPlayerWinRatio(this.state.playerId).then(response => {
+             this.setState(
+                 {
+                     playerId: response.data.playerId,
+                     days: [{
+                         day: response.data.days[0].day,
+                         win: response.data.days[0].win,
+                         lose: response.data.days[0].lose
+                     }, {
+                         day: response.data.days[1].day,
+                         win: response.data.days[1].win,
+                         lose: response.data.days[1].lose
+                     }, {
+                         day: response.data.days[2].day,
+                         win: response.data.days[2].win,
+                         lose: response.data.days[2].lose
+                     }, {
+                         day: response.data.days[3].day,
+                         win: response.data.days[3].win,
+                         lose: response.data.days[3].lose
+                     }, {
+                         day: response.data.days[4].day,
+                         win: response.data.days[4].win,
+                         lose: response.data.days[4].lose
+                     }, {
+                         day: response.data.days[5].day,
+                         win: response.data.days[5].win,
+                         lose: response.data.days[5].lose
+                     }]
+                 }
+             );
+         }).catch(onerror => {
+         });*/
     }
 
-    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        if (prevProps.playerId !== this.props.playerId) {
-            this.getData();
-        }
+    componentDidUpdate(prevProps, prevState, snapshot): void {
+        /*   if (prevProps.playerId !== this.props.playerId) {
+               this.getData();
+           }*/
     }
 
     componentDidMount(): void {
-        this.getData();
+        ///    this.getData();
     }
 
     render() {
         const data = [
-            {name: this.state.days[0].day, Win: this.state.days[0].win, Lose: -this.state.days[0].lose},
-            {name: this.state.days[1].day, Win: this.state.days[1].win, Lose: -this.state.days[1].lose},
-            {name: this.state.days[2].day, Win: this.state.days[2].win, Lose: -this.state.days[2].lose},
-            {name: this.state.days[3].day, Win: this.state.days[3].win, Lose: -this.state.days[3].lose},
-            {name: this.state.days[4].day, Win: this.state.days[4].win, Lose: -this.state.days[4].lose},
-            {name: this.state.days[5].day, Win: this.state.days[5].win, Lose: -this.state.days[5].lose},
+            /*   {name: this.state.days[0].day, Win: this.state.days[0].win, Lose: -this.state.days[0].lose},
+               {name: this.state.days[1].day, Win: this.state.days[1].win, Lose: -this.state.days[1].lose},
+               {name: this.state.days[2].day, Win: this.state.days[2].win, Lose: -this.state.days[2].lose},
+               {name: this.state.days[3].day, Win: this.state.days[3].win, Lose: -this.state.days[3].lose},
+               {name: this.state.days[4].day, Win: this.state.days[4].win, Lose: -this.state.days[4].lose},
+               {name: this.state.days[5].day, Win: this.state.days[5].win, Lose: -this.state.days[5].lose}*/
+
+            {name: "24.02", Win: 15, Lose: -7},
+            {name: "25.02", Win: 10, Lose: -9},
+            {name: "26.02".day, Win: 13, Lose: -3},
+            {name: "27.02", Win: 5, Lose: -2},
+            {name: "28.02", Win: 8, Lose: -5},
+            {name: "01.03", Win: 2, Lose: -8}
+
         ];
         return (
             <div>
@@ -99,3 +107,12 @@ export default class WinRatioChart extends React.Component {
         );
     }
 }
+
+WinRatioChart.defaultProps = {
+    days: [{day: "24.02", win: 0, lose: -2},
+        {day: "25.02", win: 10, lose: -10},
+        {day: "26.02".day, win: 15, lose: -3},
+        {day: "27.02", win: 5, lose: -2},
+        {day: "28.02", win: 8, lose: -5},
+        {day: "01.03", win: 2, lose: -8},]
+};

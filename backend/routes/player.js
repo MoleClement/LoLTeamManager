@@ -4,6 +4,7 @@ var player = require('../controllers/player.controller');
 
 // call function findOne in player.controller
 router.get('/', player.findById);
+router.get('/getPlayerByName',player.findByName);
 
 // call function create in player.controller
 router.post('/', player.create);

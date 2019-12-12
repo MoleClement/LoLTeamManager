@@ -11,7 +11,30 @@ export default class StatisticChampion extends Component {
         super(props);
         this.state = {
             playerId: props.playerId,
-            champion: []
+            champions: [{
+                champion: {
+                    icon: "",
+                    championName: "Diana"
+                },
+                result: {
+                    championPlayed: 75,
+                    championWinRate: 82,
+                    championKDA: "8.5",
+                    championCreepScore: "125"
+                }
+            },
+                {
+                    champion: {
+                        icon: "",
+                        championName: "Shyvana"
+                    },
+                    result: {
+                        championPlayed: 62,
+                        championWinRate: 79,
+                        championKDA: "5.9",
+                        championCreepScore: "186"
+                    }
+                }]
         }
     }
 
@@ -21,18 +44,18 @@ export default class StatisticChampion extends Component {
 
         apiLTM.getPlayerStatisticChampions(this.state.playerId).then(response => {
 
-         /*   [{
-                    champion: {
-                        championIcon: "iconUrl",
-                        championName: "championName"
-                    },
-                    result: {
-                        championPlayed: 0,
-                        championWinRate: 0,
-                        championKDA: 0,
-                        creepScore: 0
-                    }
-                }]*/
+            /*   [{
+                       champion: {
+                           championIcon: "iconUrl",
+                           championName: "championName"
+                       },
+                       result: {
+                           championPlayed: 0,
+                           championWinRate: 0,
+                           championKDA: 0,
+                           creepScore: 0
+                       }
+                   }]*/
 
             this.setState({
                 champions: response.data.champions
@@ -42,14 +65,14 @@ export default class StatisticChampion extends Component {
         });
     }
 
-    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        if (prevProps.playerId !== this.props.playerId) {
-            this.getData();
-        }
+    componentDidUpdate(prevProps, prevState, snapshot): void {
+        /* if (prevProps.playerId !== this.props.playerId) {
+             this.getData();
+         }*/
     }
 
     componentDidMount(): void {
-        this.getData();
+        // this.getData();
     }
 
 
@@ -71,3 +94,30 @@ export default class StatisticChampion extends Component {
     }
 
 }
+
+StatisticChampion.defaultProps = {
+    champions: [{
+        champion: {
+            icon: "",
+            name: "Diana"
+        },
+        result: {
+            played: 75,
+            winRate: 82,
+            kda: "8.5",
+            creepScore: "125"
+        }
+    },
+        {
+            champion: {
+                icon: "",
+                name: "Shyvana"
+            },
+            result: {
+                played: 62,
+                winRate: 79,
+                kda: "5.9",
+                creepScore: "186"
+            }
+        }]
+};

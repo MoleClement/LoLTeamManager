@@ -29,25 +29,36 @@ exports.findById = (req, res) => {
         });
 };
 
+// Return one player by its id from the db
+exports.findByName = (req, res) => {
+    Player.findOne({name:req.query.name})
+        .then(player => {
+            console.log(player);
+            res.send(player);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || 'Some error occurred while retrieving players.'
+            });
+        });
+};
 
 // Create a new player in the db
 exports.create = (req, res) => {
     /*console.log(req.body);*/
     // Request all the informations required in collection player
-    if (!req.body.player.name || !req.body.player.role) {
+    if (!req.body.name) {
         return res.status(400).send({
-            message: 'Insert a valid name and select a role'
+            message: 'Insert a valid name'
         });
     }
-
     // Create a new Player
     const player = new Player({
-        name: req.body.player.name,
-        role: req.body.player.role,
-        masteredChampions: req.body.player.masteredChampions,
-        dislikedChampions: req.body.player.dislikedChampions,
-        toTrainChampions: req.body.player.toTrainChampions,
-        practices: req.body.player.practices,
+        name: req.body.name,
+        role: req.body.role,
+        masteredChampions: req.body.masteredChampions,
+        dislikedChampions: req.body.dislikedChampions,
+        toTrainChampions: req.body.toTrainChampions,
 
     });
 
@@ -68,7 +79,7 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
 
     // Request all the information required in collection coach
-    if (!req.body.player) {
+    if (!req.body.player || !req.body.player._id) {
         return res.status(400).send({
             message: 'Need player Id data'
         });

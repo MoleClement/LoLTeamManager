@@ -45,28 +45,28 @@ export default class PlayerDashboard extends React.Component {
                 <div key={'0'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent style={{display: "inline-block"}}>
-                            <PlayerProfile playerId={this.state.playerId}/>
+                            <PlayerProfile playerId={this.props.match.params.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'1'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank playerId={this.state.playerId} queue={"single"}/>
+                            <ProfileRank playerId={this.props.match.params.playerId} queue={"single"}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'2'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank playerId={this.state.playerId} queue={"flex"}/>
+                            <ProfileRank playerId={this.props.match.params.playerId} queue={"flex"}/>
                         </CardContent>
                     </Card>
                 </div>
                 <div key={'3'}>
                     <Card style={{height: '100%', display: "flex", alignItems: "center"}}>
                         <CardContent>
-                            <ProfileRank playerId={this.state.playerId} queue={"tft"}/>
+                            <ProfileRank playerId={this.props.match.params.playerId} queue={"tft"}/>
                         </CardContent>
                     </Card>
                 </div>
@@ -78,7 +78,7 @@ export default class PlayerDashboard extends React.Component {
                         justifyContent: "center"
                     }}>
                         <CardContent>
-                            <WinRatioChart playerId={this.state.playerId}/>
+                            <WinRatioChart playerId={this.props.match.params.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
@@ -90,7 +90,7 @@ export default class PlayerDashboard extends React.Component {
                         justifyContent: "center"
                     }}>
                         <CardContent>
-                            <StatisticChampions playerId={this.state.playerId}/>
+                            <StatisticChampions playerId={this.props.match.params.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
@@ -102,7 +102,7 @@ export default class PlayerDashboard extends React.Component {
                         justifyContent: "center"
                     }}>
                         <CardContent>
-                            <WinRateChart playerId={this.state.playerId}/>
+                            <WinRateChart playerId={this.props.match.params.playerId}/>
                         </CardContent>
                     </Card>
                 </div>
@@ -114,7 +114,7 @@ export default class PlayerDashboard extends React.Component {
                         justifyContent: "center"
                     }}>
                         <CardContent>
-                            <MatchResult playerId={this.state.playerId}/>
+                            <MatchResult playerId={this.props.match.params.playerId}/>
                         </CardContent>
                     </Card>
                 </div>

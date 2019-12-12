@@ -13,8 +13,8 @@ export default class WinRateChart extends React.Component {
         super(props);
         this.state = {
             playerId: props.playerId,
-            win: "",
-            lose: "",
+            win: 125,
+            lose: 82,
             winRatio: ""
         }
     }
@@ -36,14 +36,14 @@ export default class WinRateChart extends React.Component {
 
     }
 
-    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        if (prevProps.playerId !== this.props.playerId) {
-            this.getData();
-        }
+    componentDidUpdate(prevProps, prevState, snapshot): void {
+        /*  if (prevProps.playerId !== this.props.playerId) {
+              this.getData();
+          }*/
     }
 
     componentDidMount(): void {
-        this.getData();
+        //this.getData();
     }
 
     render() {
@@ -53,7 +53,7 @@ export default class WinRateChart extends React.Component {
 
         return (
             <div>
-                <PieChart width={400} height={200}>
+                <PieChart width={400} height={250}>
                     <Pie
                         data={data}
                         innerRadius={60}
@@ -72,3 +72,8 @@ export default class WinRateChart extends React.Component {
         );
     }
 }
+
+WinRateChart.defaultProps = {
+    win: 125,
+    lose: 70
+};

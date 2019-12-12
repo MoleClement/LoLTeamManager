@@ -34,19 +34,6 @@ export default class PlayerProfile extends React.Component {
     }
 
 
-    /* PlayerProfile.defaultProps = {
-
-         playerName: "Feengh",
-         playerRating: "12,521 (0.08%)",
-         id: 10,
-         accountIcon: "",
-         accountLevel: "188",
-         isConnected: false,
-         isInGame: false,
-         gameSeason: "Profile season 10"
-
-     };*/
-
     getData() {
         const apiLTM = new ApiLTM();
 
@@ -72,14 +59,14 @@ export default class PlayerProfile extends React.Component {
         });
     }
 
-    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        if (prevProps.playerId !== this.props.playerId) {
-            this.getData();
-        }
+    componentDidUpdate(prevProps, prevState, snapshot): void {
+        /*  if (prevProps.playerId !== this.props.playerId) {
+              this.getData();
+          }*/
     }
 
     componentDidMount(): void {
-        this.getData();
+        //  this.getData();
     }
 
     render() {
@@ -99,7 +86,7 @@ export default class PlayerProfile extends React.Component {
                         {this.state.gameSeason}
                     </Typography>
                     <Typography variant="h5" component="h2" gutterBottom>
-                        {this.state.player.playerName}
+                        {this.state.player.playerId} {/*this.state.player.playerName*/}
                     </Typography>
                     <Typography variant="body2" component={"p"} gutterBottom>
                         <span> Account Level:</span>{this.state.account.accountLevel}
@@ -112,3 +99,16 @@ export default class PlayerProfile extends React.Component {
         );
     }
 }
+
+PlayerProfile.defaultProps = {
+
+    playerName: "Feengh",
+    playerRating: "12,521 (0.08%)",
+    id: 10,
+    accountIcon: "",
+    accountLevel: "188",
+    isConnected: false,
+    isInGame: false,
+    gameSeason: "Profile season 10"
+
+};
