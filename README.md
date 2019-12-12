@@ -13,8 +13,9 @@ player-dashboard -> Front
 
 #### WIP:  
 
-player-dashboard -> Back : API call response data formating   
-Loom : https://www.loom.com/share/997ea20815124578a68218c5a59ea98b
+player-dashboard -> Back : API call response data formating     
+Loom : https://www.loom.com/share/997ea20815124578a68218c5a59ea98b  
+  
 Host online   
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- ---- -- -- -- -- -- -- -- -- -- --
 
